@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:fragment="sidebarAdmin">
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h5 class="mb-0 fw-bold">
+                <i class="bi bi-shield-check me-2"></i>
+            </h5>
+            <small class="text-white-50">Alcaldía Kennedy</small>
+        </div>
+        <ul class="sidebar-menu">
+            <li>
+                <a th:href="@{/admin/index}"
+                   th:classappend="${paginaActual == 'index'} ? ' active'">
+                    <i class="bi bi-speedometer2"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a th:href="@{/admin/eventos/}"
+                   th:classappend="${paginaActual == 'eventos'} ? ' active'">
+                    <i class="bi bi-calendar-event"></i>
+                    <span>Gestión de Eventos</span>
+                </a>
+            </li>
+            <li>
+                <a th:href="@{/admin/categorias/}"
+                   th:classappend="${paginaActual == 'categorias'} ? ' active'">
+                    <i class="bi bi-tags"></i>
+                    <span>Categorías</span>
+                </a>
+            </li>
+            <li>
+                <a th:href="@{/admin/usuarios}"
+                   th:classappend="${paginaActual == 'usuarios'} ? ' active'">
+                    <i class="bi bi-people"></i>
+                    <span>Usuarios</span>
+                </a>
+            </li>
+            <li>
+                <a th:href="@{/admin/inscripciones}"
+                   th:classappend="${paginaActual == 'inscripciones'} ? ' active'">
+                    <i class="bi bi-clipboard-check"></i>
+                    <span>Inscripciones</span>
+                </a>
+            </li>
+            <li>
+                <a th:href="@{/admin/comentarios}"
+                   th:classappend="${paginaActual == 'comentarios'} ? ' active'">
+                    <i class="bi bi-chat-dots"></i>
+                    <span>Comentarios</span>
+                </a>
+            </li>
+            <li>
+                <a th:href="@{/admin/configuracion}"
+                   th:classappend="${paginaActual == 'configuracion'} ? ' active'">
+                    <i class="bi bi-gear"></i>
+                    <span>Configuración</span>
+                </a>
+            </li>
+        </ul>
+        <div class="px-3 mt-auto mb-3">
+            <form th:action="@{/logout}" method="post">
+                <button class="btn btn-kennedy-yellow w-100" type="submit">
+                    <i class="bi bi-box-arrow-right me-2"></i>Cerrar Sesión
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

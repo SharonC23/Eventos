@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Categorías - Alcaldía Local de Kennedy</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --kennedy-red: #CE1126;
+            --kennedy-yellow: #FCD116;
+            --kennedy-dark-red: #8B0000;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            min-height: 100vh;
+            background: linear-gradient(180deg, var(--kennedy-red) 0%, var(--kennedy-dark-red) 100%);
+            color: white;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 250px;
+            z-index: 1000;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+        }
+
+        .sidebar-header {
+            padding: 20px;
+            background: rgba(0,0,0,0.2);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .sidebar-menu {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+
+        .sidebar-menu li {
+            margin: 5px 0;
+        }
+
+        .sidebar-menu a {
+            color: white;
+            text-decoration: none;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s;
+            border-left: 3px solid transparent;
+        }
+
+        .sidebar-menu a:hover,
+        .sidebar-menu a.active {
+            background: rgba(255,255,255,0.1);
+            border-left-color: var(--kennedy-yellow);
+        }
+
+        .sidebar-menu i {
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+
+        .main-content {
+            margin-left: 250px;
+            padding: 20px;
+        }
+
+        .top-navbar {
+            background: white;
+            padding: 15px 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        .btn-kennedy-yellow {
+            background: linear-gradient(135deg, var(--kennedy-yellow), #e6bc0f);
+            color: var(--kennedy-dark-red);
+            border: none;
+            padding: 8px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-kennedy-yellow:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(252, 209, 22, 0.3);
+            color: var(--kennedy-dark-red);
+        }
+
+        .main-content {
+            margin-left: 250px;
+            padding: 30px;
+        }
+
+        .page-header {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+            border-left: 5px solid var(--kennedy-red);
+        }
+
+        .card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            margin-bottom: 20px;
+        }
+
+        .btn-kennedy {
+            background: linear-gradient(135deg, var(--kennedy-red) 0%, var(--kennedy-dark-red) 100%);
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        .btn-kennedy:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(206, 17, 38, 0.3);
+            color: white;
+        }
+
+        .categoria-card {
+            border: 2px solid #e9ecef;
+            border-radius: 15px;
+            padding: 20px;
+            transition: all 0.3s;
+            height: 100%;
+        }
+
+        .categoria-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            border-color: var(--kennedy-red);
+        }
+
+        .categoria-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, var(--kennedy-red) 0%, var(--kennedy-dark-red) 100%);
+            color: white;
+        }
+
+        .color-picker {
+            width: 50px;
+            height: 50px;
+            border-radius: 8px;
+            border: 2px solid #dee2e6;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<div th:replace="fragments/sidebarAdmin :: sidebarAdmin"></div>
+
+<div class="main-content">
+    <div class="page-header">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <h2 class="mb-1"><i class="bi bi-tags text-danger me-2"></i>Gestión de Categorías</h2>
+                <p class="text-muted mb-0">Organiza los eventos por categorías temáticas</p>
+            </div>
+            <button class="btn btn-kennedy" data-bs-toggle="modal" data-bs-target="#modalNuevaCategoria">
+                <i class="bi bi-plus-circle me-2"></i>Nueva Categoría
+            </button>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-md-4" th:each="categoria : ${categorias}">
+            <div class="card categoria-card">
+                <div class="categoria-icon" th:style="'background-color: ' + ${categoria.color} + '20; color: ' + ${categoria.color}">
+                    <i th:class="'bi bi-' + ${categoria.emojiBootstrap}"></i>
+                </div>
+                <h5 th:text="${categoria.nombreCategoria}"></h5>
+                <p class="text-muted mb-3" th:text="${categoria.descripcion}"></p>
+                <div class="d-flex justify-content-between align-items-center">
+                    <span class="badge" th:style="'background-color: '+ ${categoria.color} + ';'" th:text="${categoria.eventos.size()} + ' eventos'"></span>
+                    <div>
+                        <button class="btn btn-sm btn-outline-warning me-1" data-bs-toggle="modal" data-bs-target="#modalEditarCategoria"
+                                th:attr="data-id=${categoria.idCategoriaEvento}, data-nombre=${categoria.nombreCategoria}, data-color=${categoria.color}, data-descripcion=${categoria.descripcion}, data-icono=${categoria.emojiBootstrap}">
+                            <i class="bi bi-pencil"></i>
+                        </button>
+
+                        <form th:action="@{/admin/categorias/eliminar/{id}(id=${categoria.idCategoriaEvento})}" method="post">
+                            <button class="btn btn-sm btn-outline-danger">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalNuevaCategoria" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><i class="bi bi-plus-circle me-2"></i>Crear Nueva Categoría</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <form th:action="@{/admin/categorias/crear}" method="post">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Nombre de la Categoría</label>
+                        <input type="text" class="form-control" name="nombreCategoria" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Descripción</label>
+                        <textarea class="form-control" name="descripcion" rows="3" required></textarea>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Color</label>
+                            <input type="color" class="form-control color-picker" name="color" value="#0d6efd" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Icono</label>
+                            <select class="form-select" name="emojiBootstrap" required>
+                                <option value="">Seleccionar...</option>
+                                <option value="palette">🎨 Paleta</option>
+                                <option value="trophy">🏆 Trofeo</option>
+                                <option value="book">📚 Libro</option>
+                                <option value="heart-pulse">❤️ Salud (heart</option>
+                                <option value="briefcase">💼 Maletín</option>
+                                <option value="music-note">🎵 Música (music</option>
+                                <option value="tree">🌳 Árbol</option>
+                                <option value="people">👥 Personas</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-kennedy">
+                        <i class="bi bi-save me-2"></i>Crear Categoría
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalEditarCategoria" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Editar Categoría</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <form th:action="@{/admin/categorias/editar}" method="post">
+                <input type="hidden" name="idCategoriaEvento" id="editar-id">
+
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Nombre de la Categoría</label>
+                        <input type="text" class="form-control" name="nombreCategoria" id="editar-nombre" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Descripción</label>
+                        <textarea class="form-control" name="descripcion" id="editar-descripcion" rows="3" required></textarea>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Color</label>
+                            <input type="color" class="form-control color-picker" name="color" id="editar-color" value="#0d6efd" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Icono</label>
+                            <select class="form-select" name="emojiBootstrap" id="edit-icono" required>
+                                <option value="">Seleccionar...</option>
+                                <option value="palette">🎨 Paleta</option>
+                                <option value="trophy">🏆 Trofeo</option>
+                                <option value="book">📚 Libro</option>
+                                <option value="heart-pulse">❤️ Salud (heart</option>
+                                <option value="briefcase">💼 Maletín</option>
+                                <option value="music-note">🎵 Música (music</option>
+                                <option value="tree">🌳 Árbol</option>
+                                <option value="people">👥 Personas</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-kennedy">
+                        <i class="bi bi-save me-2"></i>Editar Categoria
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const modalEditar = document.getElementById("modalEditarCategoria");
+
+      modalEditar.addEventListener("show.bs.modal", function (event) {
+        let button = event.relatedTarget;
+
+        let id = button.getAttribute("data-id");
+        let nombre = button.getAttribute("data-nombre");
+        let color = button.getAttribute("data-color");
+        let descripcion = button.getAttribute("data-descripcion");
+        let icono = button.getAttribute("data-emojiBootstrap");
+
+        document.getElementById("editar-id").value = id;
+        document.getElementById("editar-nombre").value = nombre;
+        document.getElementById("editar-color").value = color;
+        document.getElementById("editar-descripcion").value = descripcion;
+        document.getElementById("editar-icono").value = icono;
+      });
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Administrativo - Alcaldía Local de Kennedy</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --kennedy-red: #CE1126;
+            --kennedy-yellow: #FCD116;
+            --kennedy-dark-red: #8B0000;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        .sidebar {
+            min-height: 100vh;
+            background: linear-gradient(180deg, var(--kennedy-red) 0%, var(--kennedy-dark-red) 100%);
+            color: white;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 250px;
+            z-index: 1000;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+        }
+
+        .sidebar-header {
+            padding: 20px;
+            background: rgba(0,0,0,0.2);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .sidebar-menu {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+
+        .sidebar-menu li {
+            margin: 5px 0;
+        }
+
+        .sidebar-menu a {
+            color: white;
+            text-decoration: none;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s;
+            border-left: 3px solid transparent;
+        }
+
+        .sidebar-menu a:hover,
+        .sidebar-menu a.active {
+            background: rgba(255,255,255,0.1);
+            border-left-color: var(--kennedy-yellow);
+        }
+
+        .sidebar-menu i {
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+
+        .main-content {
+            margin-left: 250px;
+            padding: 20px;
+        }
+
+        .top-navbar {
+            background: white;
+            padding: 15px 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+            border-left: 4px solid var(--kennedy-red);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+        }
+
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            color: white;
+        }
+
+        .stat-icon.red {
+            background: linear-gradient(135deg, var(--kennedy-red), var(--kennedy-dark-red));
+        }
+
+        .stat-icon.yellow {
+            background: linear-gradient(135deg, var(--kennedy-yellow), #e6bc0f);
+            color: var(--kennedy-dark-red);
+        }
+
+        .stat-icon.blue {
+            background: linear-gradient(135deg, #0d6efd, #0a58ca);
+        }
+
+        .stat-icon.green {
+            background: linear-gradient(135deg, #198754, #146c43);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--kennedy-red);
+        }
+
+        .stat-label {
+            color: #6c757d;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .card-custom {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            border: none;
+        }
+
+        .card-custom .card-header {
+            background: linear-gradient(135deg, var(--kennedy-red), var(--kennedy-dark-red));
+            color: white;
+            border-radius: 15px 15px 0 0 !important;
+            padding: 15px 20px;
+            font-weight: 600;
+        }
+
+        .table-custom {
+            margin-bottom: 0;
+        }
+
+        .table-custom thead {
+            background-color: #f8f9fa;
+        }
+
+        .badge-status {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-weight: 500;
+        }
+
+        .btn-kennedy {
+            background: linear-gradient(135deg, var(--kennedy-red), var(--kennedy-dark-red));
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        .btn-kennedy:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(206, 17, 38, 0.3);
+            color: white;
+        }
+
+        .btn-kennedy-yellow {
+            background: linear-gradient(135deg, var(--kennedy-yellow), #e6bc0f);
+            color: var(--kennedy-dark-red);
+            border: none;
+            padding: 8px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-kennedy-yellow:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(252, 209, 22, 0.3);
+            color: var(--kennedy-dark-red);
+        }
+
+        .quick-action-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .quick-action-card:hover {
+            border-color: var(--kennedy-red);
+            transform: translateY(-3px);
+        }
+
+        .quick-action-icon {
+            font-size: 2.5rem;
+            color: var(--kennedy-red);
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 0;
+                overflow: hidden;
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+<div th:replace="fragments/sidebarAdmin :: sidebarAdmin"></div>
+
+<div class="main-content">
+
+    <div class="top-navbar d-flex justify-content-between align-items-center">
+        <div>
+            <h4 class="mb-0 fw-bold text-dark">Dashboard Administrativo</h4>
+            <small class="text-muted">Bienvenido, <!--span th:text="${usuario.nombre}">Administrador</span--></small>
+        </div>
+        <div class="d-flex align-items-center gap-3">
+            <div class="position-relative">
+                <i class="bi bi-bell fs-4 text-muted"></i>
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                        3
+                    </span>
+            </div>
+            <div class="d-flex align-items-center">
+                <div class="bg-danger text-white rounded-circle d-flex align-items-center justify-content-center"
+                     style="width: 40px; height: 40px;">
+                    <i class="bi bi-person-fill"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4 mb-4">
+        <div class="col-md-3">
+            <div class="stat-card">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <div class="stat-label">Total Eventos</div>
+                        <div class="stat-number" th:text="${totalEventos}">45</div>
+                        <small class="text-success"><i class="bi bi-arrow-up"></i> +12% este mes</small>
+                    </div>
+                    <div class="stat-icon red">
+                        <i class="bi bi-calendar-event"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stat-card">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <div class="stat-label">Usuarios Registrados</div>
+                        <div class="stat-number" th:text="${totalUsuarios}">1,234</div>
+                        <small class="text-success"><i class="bi bi-arrow-up"></i> +8% este mes</small>
+                    </div>
+                    <div class="stat-icon blue">
+                        <i class="bi bi-people"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stat-card">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <div class="stat-label">Inscripciones</div>
+                        <div class="stat-number" th:text="${totalInscripciones}">3,567</div>
+                        <small class="text-success"><i class="bi bi-arrow-up"></i> +25% este mes</small>
+                    </div>
+                    <div class="stat-icon green">
+                        <i class="bi bi-clipboard-check"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stat-card">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <div class="stat-label">Comentarios</div>
+                        <div class="stat-number" th:text="${totalComentarios}">892</div>
+                        <small class="text-warning"><i class="bi bi-dash"></i> Sin cambios</small>
+                    </div>
+                    <div class="stat-icon yellow">
+                        <i class="bi bi-chat-dots"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-3 mb-4">
+        <div class="col-12">
+            <h5 class="fw-bold mb-3">Acciones Rápidas</h5>
+        </div>
+        <div class="col-md-3">
+            <div class="quick-action-card" onclick="window.location.href='/admin/eventos/nuevo'">
+                <div class="quick-action-icon">
+                    <i class="bi bi-plus-circle"></i>
+                </div>
+                <h6 class="fw-bold mb-0">Crear Evento</h6>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="quick-action-card" onclick="window.location.href='/admin/categorias/nueva'">
+                <div class="quick-action-icon">
+                    <i class="bi bi-tag"></i>
+                </div>
+                <h6 class="fw-bold mb-0">Nueva Categoría</h6>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="quick-action-card" onclick="window.location.href='/admin/reportes'">
+                <div class="quick-action-icon">
+                    <i class="bi bi-file-earmark-bar-graph"></i>
+                </div>
+                <h6 class="fw-bold mb-0">Ver Reportes</h6>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="quick-action-card" onclick="window.location.href='/admin/usuarios'">
+                <div class="quick-action-icon">
+                    <i class="bi bi-person-plus"></i>
+                </div>
+                <h6 class="fw-bold mb-0">Gestionar Usuarios</h6>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-lg-8">
+            <div class="card-custom">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <span><i class="bi bi-calendar-event me-2"></i>Eventos Recientes</span>
+                    <a href="/admin/eventos" class="btn btn-sm btn-kennedy-yellow">Ver Todos</a>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-custom table-hover">
+                            <thead>
+                            <tr>
+                                <th>Evento</th>
+                                <th>Categoría</th>
+                                <th>Fecha</th>
+                                <th>Inscritos</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="evento : ${eventosRecientes}">
+                                <td>
+                                    <strong th:text="${evento.nombre}">Festival Cultural</strong>
+                                </td>
+                                <td>
+                                    <span class="badge bg-danger" th:text="${evento.categoria.nombre}">Cultura</span>
+                                </td>
+                                <td th:text="${#temporals.format(evento.fecha, 'dd/MM/yyyy')}">15/10/2025</td>
+                                <td>
+                                    <span class="badge bg-primary" th:text="${evento.totalInscritos}">45</span>
+                                </td>
+                                <td>
+                                    <span class="badge badge-status bg-success">Activo</span>
+                                </td>
+                                <td>
+                                    <button class="btn btn-sm btn-outline-primary" title="Editar">
+                                        <i class="bi bi-pencil"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-danger" title="Eliminar">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td><strong>Festival Cultural Kennedy</strong></td>
+                                <td><span class="badge bg-danger">Cultura</span></td>
+                                <td>15/10/2025</td>
+                                <td><span class="badge bg-primary">156</span></td>
+                                <td><span class="badge badge-status bg-success">Activo</span></td>
+                                <td>
+                                    <button class="btn btn-sm btn-outline-primary"><i class="bi bi-pencil"></i></button>
+                                    <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Ciclovía Comunitaria</strong></td>
+                                <td><span class="badge bg-success">Deporte</span></td>
+                                <td>20/10/2025</td>
+                                <td><span class="badge bg-primary">89</span></td>
+                                <td><span class="badge badge-status bg-success">Activo</span></td>
+                                <td>
+                                    <button class="btn btn-sm btn-outline-primary"><i class="bi bi-pencil"></i></button>
+                                    <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Taller de Tecnología</strong></td>
+                                <td><span class="badge bg-primary">Educación</span></td>
+                                <td>25/10/2025</td>
+                                <td><span class="badge bg-primary">34</span></td>
+                                <td><span class="badge badge-status bg-warning text-dark">Pendiente</span></td>
+                                <td>
+                                    <button class="btn btn-sm btn-outline-primary"><i class="bi bi-pencil"></i></button>
+                                    <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card-custom">
+                <div class="card-header">
+                    <i class="bi bi-bar-chart me-2"></i>Categorías Más Populares
+                </div>
+                <div class="card-body">
+                    <div class="mb-4">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="fw-bold">Cultura</span>
+                            <span class="text-muted">45%</span>
+                        </div>
+                        <div class="progress" style="height: 10px;">
+                            <div class="progress-bar" style="width: 45%; background: var(--kennedy-red);"></div>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="fw-bold">Deporte</span>
+                            <span class="text-muted">30%</span>
+                        </div>
+                        <div class="progress" style="height: 10px;">
+                            <div class="progress-bar bg-success" style="width: 30%;"></div>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="fw-bold">Educación</span>
+                            <span class="text-muted">15%</span>
+                        </div>
+                        <div class="progress" style="height: 10px;">
+                            <div class="progress-bar bg-primary" style="width: 15%;"></div>
+                        </div>
+                    </div>
+                    <div class="mb-0">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="fw-bold">Otros</span>
+                            <span class="text-muted">10%</span>
+                        </div>
+                        <div class="progress" style="height: 10px;">
+                            <div class="progress-bar" style="width: 10%; background: var(--kennedy-yellow);"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-custom mt-4">
+                <div class="card-header">
+                    <i class="bi bi-clock-history me-2"></i>Actividad Reciente
+                </div>
+                <div class="card-body">
+                    <div class="d-flex mb-3">
+                        <div class="flex-shrink-0">
+                            <div class="bg-success text-white rounded-circle d-flex align-items-center justify-content-center"
+                                 style="width: 35px; height: 35px;">
+                                <i class="bi bi-person-plus"></i>
+                            </div>
+                        </div>
+                        <div class="flex-grow-1 ms-3">
+                            <p class="mb-0 small"><strong>Nuevo usuario registrado</strong></p>
+                            <small class="text-muted">Hace 5 minutos</small>
+                        </div>
+                    </div>
+                    <div class="d-flex mb-3">
+                        <div class="flex-shrink-0">
+                            <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center"
+                                 style="width: 35px; height: 35px;">
+                                <i class="bi bi-calendar-plus"></i>
+                            </div>
+                        </div>
+                        <div class="flex-grow-1 ms-3">
+                            <p class="mb-0 small"><strong>Evento creado</strong></p>
+                            <small class="text-muted">Hace 1 hora</small>
+                        </div>
+                    </div>
+                    <div class="d-flex">
+                        <div class="flex-shrink-0">
+                            <div class="bg-warning text-dark rounded-circle d-flex align-items-center justify-content-center"
+                                 style="width: 35px; height: 35px;">
+                                <i class="bi bi-chat"></i>
+                            </div>
+                        </div>
+                        <div class="flex-grow-1 ms-3">
+                            <p class="mb-0 small"><strong>Nuevo comentario</strong></p>
+                            <small class="text-muted">Hace 2 horas</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configuración - Alcaldía Local de Kennedy</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --kennedy-red: #CE1126;
+            --kennedy-yellow: #FCD116;
+            --kennedy-dark-red: #8B0000;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            min-height: 100vh;
+            background: linear-gradient(180deg, var(--kennedy-red) 0%, var(--kennedy-dark-red) 100%);
+            color: white;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 250px;
+            z-index: 1000;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+        }
+
+        .sidebar-header {
+            padding: 20px;
+            background: rgba(0,0,0,0.2);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .sidebar-menu {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+
+        .sidebar-menu li {
+            margin: 5px 0;
+        }
+
+        .sidebar-menu a {
+            color: white;
+            text-decoration: none;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s;
+            border-left: 3px solid transparent;
+        }
+
+        .sidebar-menu a:hover,
+        .sidebar-menu a.active {
+            background: rgba(255,255,255,0.1);
+            border-left-color: var(--kennedy-yellow);
+        }
+
+        .sidebar-menu i {
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+
+        .main-content {
+            margin-left: 250px;
+            padding: 20px;
+        }
+
+        .top-navbar {
+            background: white;
+            padding: 15px 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        .btn-kennedy-yellow {
+            background: linear-gradient(135deg, var(--kennedy-yellow), #e6bc0f);
+            color: var(--kennedy-dark-red);
+            border: none;
+            padding: 8px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-kennedy-yellow:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(252, 209, 22, 0.3);
+            color: var(--kennedy-dark-red);
+        }
+
+        .main-content {
+            margin-left: 250px;
+            padding: 30px;
+        }
+
+        .page-header {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+            border-left: 5px solid var(--kennedy-red);
+        }
+
+        .card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            margin-bottom: 20px;
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, var(--kennedy-red) 0%, var(--kennedy-dark-red) 100%);
+            color: white;
+            border-radius: 15px 15px 0 0 !important;
+            padding: 15px 20px;
+            font-weight: 600;
+        }
+
+        .btn-kennedy {
+            background: linear-gradient(135deg, var(--kennedy-red) 0%, var(--kennedy-dark-red) 100%);
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        .btn-kennedy:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(206, 17, 38, 0.3);
+            color: white;
+        }
+
+        .config-section {
+            padding: 20px;
+        }
+
+        .config-item {
+            padding: 15px 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .config-item:last-child {
+            border-bottom: none;
+        }
+
+        .form-switch .form-check-input {
+            width: 3em;
+            height: 1.5em;
+        }
+
+        .form-switch .form-check-input:checked {
+            background-color: var(--kennedy-red);
+            border-color: var(--kennedy-red);
+        }
+    </style>
+</head>
+<body>
+<div th:replace="fragments/sidebarAdmin :: sidebarAdmin"></div>
+
+Main Content
+<div class="main-content">
+    <div class="page-header">
+        <h2 class="mb-1"><i class="bi bi-gear text-danger me-2"></i>Configuración del Sistema</h2>
+        <p class="text-muted mb-0">Personaliza y configura la plataforma de eventos</p>
+    </div>
+
+    <div class="row">
+        Información General
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <i class="bi bi-info-circle me-2"></i>Información General
+                </div>
+                <div class="config-section">
+                    <form th:action="@{/admin/configuracion/general}" method="post">
+                        <div class="mb-3">
+                            <label class="form-label">Nombre de la Plataforma</label>
+                            <input type="text" class="form-control" name="nombrePlataforma" value="Eventos Kennedy" th:value="${config.nombrePlataforma}">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Email de Contacto</label>
+                            <input type="email" class="form-control" name="emailContacto" value="contacto@kennedy.gov.co" th:value="${config.emailContacto}">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Teléfono</label>
+                            <input type="tel" class="form-control" name="telefono" value="(601) 555-0100" th:value="${config.telefono}">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Dirección</label>
+                            <input type="text" class="form-control" name="direccion" value="Calle 45 Sur #78-90, Kennedy" th:value="${config.direccion}">
+                        </div>
+                        <button type="submit" class="btn btn-kennedy">
+                            <i class="bi bi-save me-2"></i>Guardar Cambios
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        Configuración de Eventos
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <i class="bi bi-calendar-event me-2"></i>Configuración de Eventos
+                </div>
+                <div class="config-section">
+                    <form th:action="@{/admin/configuracion/eventos}" method="post">
+                        <div class="config-item">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <strong>Aprobar eventos automáticamente</strong>
+                                    <p class="text-muted mb-0 small">Los eventos se publican sin revisión</p>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" name="aprobarAutomatico" th:checked="${config.aprobarAutomatico}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="config-item">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <strong>Permitir comentarios</strong>
+                                    <p class="text-muted mb-0 small">Los usuarios pueden comentar eventos</p>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" name="permitirComentarios" checked th:checked="${config.permitirComentarios}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="config-item">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <strong>Moderar comentarios</strong>
+                                    <p class="text-muted mb-0 small">Revisar comentarios antes de publicar</p>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" name="moderarComentarios" checked th:checked="${config.moderarComentarios}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="config-item">
+                            <label class="form-label">Cupo máximo por defecto</label>
+                            <input type="number" class="form-control" name="cupoMaximoDefecto" value="50" th:value="${config.cupoMaximoDefecto}">
+                        </div>
+                        <button type="submit" class="btn btn-kennedy mt-3">
+                            <i class="bi bi-save me-2"></i>Guardar Cambios
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        Notificaciones
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <i class="bi bi-bell me-2"></i>Notificaciones
+                </div>
+                <div class="config-section">
+                    <form th:action="@{/admin/configuracion/notificaciones}" method="post">
+                        <div class="config-item">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <strong>Notificar nuevas inscripciones</strong>
+                                    <p class="text-muted mb-0 small">Email al admin por cada inscripción</p>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" name="notificarInscripciones" checked th:checked="${config.notificarInscripciones}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="config-item">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <strong>Notificar nuevos comentarios</strong>
+                                    <p class="text-muted mb-0 small">Email al admin por cada comentario</p>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" name="notificarComentarios" checked th:checked="${config.notificarComentarios}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="config-item">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <strong>Recordatorios de eventos</strong>
+                                    <p class="text-muted mb-0 small">Enviar recordatorio 24h antes</p>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" name="recordatoriosEventos" checked th:checked="${config.recordatoriosEventos}">
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-kennedy mt-3">
+                            <i class="bi bi-save me-2"></i>Guardar Cambios
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        Seguridad
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <i class="bi bi-shield-check me-2"></i>Seguridad
+                </div>
+                <div class="config-section">
+                    <form th:action="@{/admin/configuracion/seguridad}" method="post">
+                        <div class="config-item">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <strong>Registro de usuarios abierto</strong>
+                                    <p class="text-muted mb-0 small">Permitir registro público</p>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" name="registroAbierto" checked th:checked="${config.registroAbierto}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="config-item">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <strong>Verificación de email</strong>
+                                    <p class="text-muted mb-0 small">Requerir verificación de correo</p>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" name="verificarEmail" th:checked="${config.verificarEmail}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="config-item">
+                            <label class="form-label">Sesión expira en (minutos)</label>
+                            <input type="number" class="form-control" name="tiempoSesion" value="60" th:value="${config.tiempoSesion}">
+                        </div>
+                        <button type="submit" class="btn btn-kennedy mt-3">
+                            <i class="bi bi-save me-2"></i>Guardar Cambios
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        Mantenimiento
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <i class="bi bi-tools me-2"></i>Mantenimiento
+                </div>
+                <div class="config-section">
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <div class="card bg-light">
+                                <div class="card-body text-center">
+                                    <i class="bi bi-database fs-1 text-primary mb-3"></i>
+                                    <h5>Respaldar Base de Datos</h5>
+                                    <p class="text-muted small">Crear copia de seguridad</p>
+                                    <button class="btn btn-primary" onclick="respaldarDB()">
+                                        <i class="bi bi-download me-2"></i>Respaldar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card bg-light">
+                                <div class="card-body text-center">
+                                    <i class="bi bi-trash fs-1 text-warning mb-3"></i>
+                                    <h5>Limpiar Datos Antiguos</h5>
+                                    <p class="text-muted small">Eliminar eventos finalizados</p>
+                                    <button class="btn btn-warning" onclick="limpiarDatos()">
+                                        <i class="bi bi-trash me-2"></i>Limpiar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card bg-light">
+                                <div class="card-body text-center">
+                                    <i class="bi bi-file-earmark-text fs-1 text-success mb-3"></i>
+                                    <h5>Generar Reporte</h5>
+                                    <p class="text-muted small">Reporte completo del sistema</p>
+                                    <button class="btn btn-success" onclick="generarReporte()">
+                                        <i class="bi bi-file-earmark-pdf me-2"></i>Generar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    function respaldarDB() {
+        if(confirm('¿Desea crear un respaldo de la base de datos?')) {
+            alert('Respaldo creado exitosamente');
+        }
+    }
+
+    function limpiarDatos() {
+        if(confirm('¿Está seguro de eliminar eventos finalizados? Esta acción no se puede deshacer.')) {
+            alert('Datos antiguos eliminados correctamente');
+        }
+    }
+
+    function generarReporte() {
+        alert('Generando reporte del sistema...');
+    }
+</script>
+</body>
+</html>
