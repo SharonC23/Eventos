@@ -41,6 +41,7 @@ public class CiudadanoController {
     @GetMapping("/index")
     public String index(Model model, Authentication authentication){
         model.addAttribute("ciudadano", usuario(authentication));
+        model.addAttribute("proximosEventos", inscripcionService.obtenerPorUsuarioYEstadoEvento(usuario(authentication), "PROXIMO"));
         return "/ciudadano/dashboard";
     }
 
@@ -48,6 +49,12 @@ public class CiudadanoController {
     public String eventos(Model model){
         model.addAttribute("eventos", eventoService.obtenerTodos());
         return "/ciudadano/eventos";
+    }
+
+    @GetMapping("/mis-inscripciones")
+    public String misInscripciones(Model model, Authentication authentication){
+        model.addAttribute("inscripciones", inscripcionService.obtenerPorUsuario(usuario(authentication)));
+        return "/ciudadano/inscripciones";
     }
 
     @GetMapping("/evento/{id}")

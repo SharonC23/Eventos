@@ -5,6 +5,8 @@ import com.eventos.entity.InscripcionEvento;
 import com.eventos.entity.Usuario;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public interface InscripcionService {
 
@@ -13,4 +15,8 @@ public interface InscripcionService {
     boolean validarInscripcion(Usuario usuario, Evento evento);
 
     void crearInscripcion(InscripcionEvento inscripcionEvento);
+
+    List<InscripcionEvento> obtenerPorUsuarioYEstadoEvento(Usuario usuario, String estado);
+
+    List<InscripcionEvento> obtenerPorUsuario(Usuario usuario);
 }

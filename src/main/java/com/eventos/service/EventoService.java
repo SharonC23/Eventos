@@ -1,6 +1,7 @@
 package com.eventos.service;
 
 import com.eventos.entity.Evento;
+import com.eventos.entity.Usuario;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

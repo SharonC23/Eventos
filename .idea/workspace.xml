@@ -5,26 +5,28 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="487b5b31-c280-4090-8f4c-72898b06b473" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/eventos/controller/ComentarioController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/eventos/implement/ComentarioImplement.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/eventos/repository/ComentarioRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/eventos/service/ComentarioService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/fragments/sidebarCiudadano.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/eventos/controller/CiudadanoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/eventos/controller/CiudadanoController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/eventos/entity/Comentario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/eventos/entity/Comentario.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/eventos/entity/Evento.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/eventos/entity/Evento.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/eventos/entity/InscripcionEvento.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/eventos/entity/InscripcionEvento.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/eventos/implement/EventoImplement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/eventos/implement/EventoImplement.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/eventos/implement/InscripcionImplement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/eventos/implement/InscripcionImplement.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/eventos/repository/EventoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/eventos/repository/EventoRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/eventos/repository/InscripcionRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/eventos/repository/InscripcionRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/eventos/service/EventoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/eventos/service/EventoService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/eventos/service/InscripcionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/eventos/service/InscripcionService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/ciudadano/dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/ciudadano/dashboard.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/ciudadano/detalle.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/ciudadano/detalle.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/ciudadano/eventos.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/ciudadano/eventos.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/ciudadano/inscripciones.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/ciudadano/inscripciones.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/eventos/controller/CiudadanoController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/eventos/controller/CiudadanoController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/eventos/entity/InscripcionEvento.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/eventos/entity/InscripcionEvento.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/eventos/implement/EventoImplement.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/eventos/implement/EventoImplement.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/eventos/implement/InscripcionImplement.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/eventos/implement/InscripcionImplement.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/eventos/repository/InscripcionRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/eventos/repository/InscripcionRepository.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/eventos/service/InscripcionService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/eventos/service/InscripcionService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/ciudadano/dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/ciudadano/dashboard.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/templates/ciudadano/detalle.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/ciudadano/detalle.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/templates/ciudadano/eventos.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/ciudadano/eventos.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/ciudadano/inscripciones.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/ciudadano/inscripciones.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,9 +36,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="HTML File" />
         <option value="Interface" />
         <option value="Class" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>

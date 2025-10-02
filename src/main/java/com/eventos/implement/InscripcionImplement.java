@@ -8,6 +8,8 @@ import com.eventos.service.InscripcionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class InscripcionImplement implements InscripcionService {
     @Autowired
@@ -26,5 +28,15 @@ public class InscripcionImplement implements InscripcionService {
     @Override
     public void crearInscripcion(InscripcionEvento inscripcionEvento) {
         inscripcionRepository.save(inscripcionEvento);
+    }
+
+    @Override
+    public List<InscripcionEvento> obtenerPorUsuarioYEstadoEvento(Usuario usuario, String estado) {
+        return inscripcionRepository.findByUsuarioAndEventoEstado(usuario, estado);
+    }
+
+    @Override
+    public List<InscripcionEvento> obtenerPorUsuario(Usuario usuario) {
+        return inscripcionRepository.findByUsuario(usuario);
     }
 }

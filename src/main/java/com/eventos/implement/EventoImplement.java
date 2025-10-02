@@ -1,6 +1,7 @@
 package com.eventos.implement;
 
 import com.eventos.entity.Evento;
+import com.eventos.entity.Usuario;
 import com.eventos.repository.EventoRepository;
 import com.eventos.service.EventoService;
 import org.springframework.beans.factory.annotation.Autowired;

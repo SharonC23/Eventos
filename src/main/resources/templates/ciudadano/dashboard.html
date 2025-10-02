@@ -203,56 +203,7 @@
     </style>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark navbar-kennedy sticky-top">
-    <div class="container">
-        <a class="navbar-brand d-flex align-items-center" th:href="@{/ciudadano/dashboard}">
-            <i class="bi bi-building me-2 fs-4"></i>
-            <span class="fw-bold">Alcaldía Kennedy</span>
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
-                    <a class="nav-link active" th:href="@{/ciudadano/dashboard}">
-                        <i class="bi bi-house-door me-1"></i>Inicio
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/ciudadanos/eventos}">
-                        <i class="bi bi-calendar-event me-1"></i>Eventos
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/ciudadano/mis-inscripciones}">
-                        <i class="bi bi-clipboard-check me-1"></i>Mis Inscripciones
-                    </a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown">
-                        <i class="bi bi-person-circle me-1"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-end">
-                        <li><a class="dropdown-item" th:href="@{/ciudadano/perfil}"><i class="bi bi-person me-2"></i>Mi Perfil</a></li>
-                        <li><a class="dropdown-item" th:href="@{/ciudadano/configuracion}"><i class="bi bi-gear me-2"></i>Configuración</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li>
-                            <a class="dropdown-item text-danger">
-                                <form th:action="@{/logout}" method="post">
-                                    <button type="submit">
-                                        <i class="bi bi-box-arrow-right me-2"></i>
-                                        Cerrar Sesión
-                                    </button>
-                                </form>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
+<div th:replace="fragments/sidebarCiudadano :: navbarCiudadano"></div>
 
 <div class="container py-4">
     <div class="welcome-banner">
@@ -270,249 +221,31 @@
         </div>
     </div>
 
-    <div class="row g-4 mb-4">
-        <div class="col-md-4">
-            <div class="stat-card-citizen">
-                <div class="stat-icon-citizen red">
-                    <i class="bi bi-calendar-check"></i>
-                </div>
-                <div class="stat-number-citizen" th:text="${misInscripciones}">8</div>
-                <div class="stat-label-citizen">Eventos Inscritos</div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="stat-card-citizen">
-                <div class="stat-icon-citizen blue">
-                    <i class="bi bi-chat-dots"></i>
-                </div>
-                <div class="stat-number-citizen" th:text="${misComentarios}">12</div>
-                <div class="stat-label-citizen">Comentarios Realizados</div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="stat-card-citizen">
-                <div class="stat-icon-citizen yellow">
-                    <i class="bi bi-star"></i>
-                </div>
-                <div class="stat-number-citizen" th:text="${eventosDisponibles}">24</div>
-                <div class="stat-label-citizen">Eventos Disponibles</div>
-            </div>
-        </div>
-    </div>
-
     <div class="mb-5">
         <h3 class="section-title-citizen">Mis Próximos Eventos</h3>
         <div class="row g-3">
-            <div class="col-md-6" th:each="evento : ${proximosEventos}">
+            <div class="col-md-6" th:each="inscripcion : ${proximosEventos}">
                 <div class="my-event-card">
                     <div class="d-flex justify-content-between align-items-start mb-2">
-                        <h5 class="fw-bold mb-0" th:text="${evento.nombre}">Festival Cultural Kennedy</h5>
-                        <span class="badge bg-danger" th:text="${evento.categoria.nombre}">Cultura</span>
+                        <h5 class="fw-bold mb-0" th:text="${inscripcion.evento.nombre}"></h5>
+                        <span class="badge bg-danger" th:text="${inscripcion.evento.categoria.nombreCategoria}"></span>
                     </div>
                     <p class="text-muted mb-2">
                         <i class="bi bi-calendar3 me-2"></i>
-                        <span th:text="${#temporals.format(evento.fecha, 'dd/MM/yyyy')}">15/10/2025</span>
+                        <span th:text="${#temporals.format(inscripcion.evento.fecha, 'dd/MM/yyyy')}"></span>
                         <i class="bi bi-clock ms-3 me-2"></i>
-                        <span th:text="${evento.hora}">10:00 AM</span>
+                        <span th:text="${inscripcion.evento.hora}"></span>
                     </p>
                     <p class="text-muted mb-3">
                         <i class="bi bi-geo-alt me-2"></i>
-                        <span th:text="${evento.lugar}">Parque Central Kennedy</span>
+                        <span th:text="${inscripcion.evento.lugar}"></span>
                     </p>
                     <div class="d-flex gap-2">
-                        <button class="btn btn-kennedy btn-sm">
-                            <i class="bi bi-info-circle me-1"></i>Ver Detalles
-                        </button>
-                        <button class="btn btn-kennedy-outline btn-sm">
-                            <i class="bi bi-x-circle me-1"></i>Cancelar Inscripción
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <div class="my-event-card">
-                    <div class="d-flex justify-content-between align-items-start mb-2">
-                        <h5 class="fw-bold mb-0">Festival Cultural Kennedy</h5>
-                        <span class="badge bg-danger">Cultura</span>
-                    </div>
-                    <p class="text-muted mb-2">
-                        <i class="bi bi-calendar3 me-2"></i>15/10/2025
-                        <i class="bi bi-clock ms-3 me-2"></i>10:00 AM
-                    </p>
-                    <p class="text-muted mb-3">
-                        <i class="bi bi-geo-alt me-2"></i>Parque Central Kennedy
-                    </p>
-                    <div class="d-flex gap-2">
-                        <button class="btn btn-kennedy btn-sm">
-                            <i class="bi bi-info-circle me-1"></i>Ver Detalles
-                        </button>
-                        <button class="btn btn-kennedy-outline btn-sm">
-                            <i class="bi bi-x-circle me-1"></i>Cancelar
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="my-event-card">
-                    <div class="d-flex justify-content-between align-items-start mb-2">
-                        <h5 class="fw-bold mb-0">Ciclovía Comunitaria</h5>
-                        <span class="badge bg-success">Deporte</span>
-                    </div>
-                    <p class="text-muted mb-2">
-                        <i class="bi bi-calendar3 me-2"></i>20/10/2025
-                        <i class="bi bi-clock ms-3 me-2"></i>7:00 AM
-                    </p>
-                    <p class="text-muted mb-3">
-                        <i class="bi bi-geo-alt me-2"></i>Av. Ciudad de Cali
-                    </p>
-                    <div class="d-flex gap-2">
-                        <button class="btn btn-kennedy btn-sm">
-                            <i class="bi bi-info-circle me-1"></i>Ver Detalles
-                        </button>
-                        <button class="btn btn-kennedy-outline btn-sm">
-                            <i class="bi bi-x-circle me-1"></i>Cancelar
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="category-filter">
-        <h5 class="fw-bold mb-3">Filtrar por Categoría</h5>
-        <div>
-            <span class="category-chip active">Todos</span>
-            <span class="category-chip">Cultura</span>
-            <span class="category-chip">Deporte</span>
-            <span class="category-chip">Educación</span>
-            <span class="category-chip">Salud</span>
-            <span class="category-chip">Medio Ambiente</span>
-            <span class="category-chip">Comunidad</span>
-        </div>
-    </div>
-
-    <div class="mb-5">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h3 class="section-title-citizen mb-0">Eventos Disponibles</h3>
-            <a href="/ciudadano/eventos" class="btn btn-kennedy-outline">
-                Ver Todos <i class="bi bi-arrow-right ms-2"></i>
-            </a>
-        </div>
-        <div class="row g-4">
-            <div class="col-md-4" th:each="evento : ${eventosDisponiblesList}">
-                <div class="card event-card-citizen">
-                    <div class="event-image-citizen">
-                        <i class="bi bi-music-note-beamed"></i>
-                        <span class="event-badge" th:text="${evento.categoria.nombre}">Cultura</span>
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title fw-bold" th:text="${evento.nombre}">Festival Cultural</h5>
-                        <p class="text-muted mb-2">
-                            <i class="bi bi-calendar3 me-2"></i>
-                            <span th:text="${#temporals.format(evento.fecha, 'dd/MM/yyyy')}">15/10/2025</span>
-                        </p>
-                        <p class="text-muted mb-3">
-                            <i class="bi bi-geo-alt me-2"></i>
-                            <span th:text="${evento.lugar}">Parque Central</span>
-                        </p>
-                        <p class="card-text mb-3" th:text="${evento.descripcion}">
-                            Gran festival con música, danza y gastronomía local.
-                        </p>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <small class="text-muted">
-                                <i class="bi bi-people me-1"></i>
-                                <span th:text="${evento.totalInscritos}">45</span> inscritos
-                            </small>
-                            <button class="btn btn-kennedy btn-sm">
-                                <i class="bi bi-plus-circle me-1"></i>Inscribirse
+                        <form th:action="@{/ciudadanos/evento/{id}(id=${inscripcion.evento.idEvento})}">
+                             <button type="submit" class="btn btn-kennedy btn-sm">
+                                <i class="bi bi-info-circle me-1"></i>Ver Detalles
                             </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="card event-card-citizen">
-                    <div class="event-image-citizen">
-                        <i class="bi bi-palette"></i>
-                        <span class="event-badge">Cultura</span>
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title fw-bold">Exposición de Arte Local</h5>
-                        <p class="text-muted mb-2">
-                            <i class="bi bi-calendar3 me-2"></i>28/10/2025
-                        </p>
-                        <p class="text-muted mb-3">
-                            <i class="bi bi-geo-alt me-2"></i>Casa de la Cultura
-                        </p>
-                        <p class="card-text mb-3">
-                            Muestra de artistas locales de Kennedy con obras de pintura y escultura.
-                        </p>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <small class="text-muted">
-                                <i class="bi bi-people me-1"></i>23 inscritos
-                            </small>
-                            <button class="btn btn-kennedy btn-sm">
-                                <i class="bi bi-plus-circle me-1"></i>Inscribirse
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card event-card-citizen">
-                    <div class="event-image-citizen">
-                        <i class="bi bi-heart-pulse"></i>
-                        <span class="event-badge">Salud</span>
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title fw-bold">Jornada de Salud Gratuita</h5>
-                        <p class="text-muted mb-2">
-                            <i class="bi bi-calendar3 me-2"></i>02/11/2025
-                        </p>
-                        <p class="text-muted mb-3">
-                            <i class="bi bi-geo-alt me-2"></i>Centro de Salud Kennedy
-                        </p>
-                        <p class="card-text mb-3">
-                            Chequeos médicos, vacunación y asesoría nutricional sin costo.
-                        </p>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <small class="text-muted">
-                                <i class="bi bi-people me-1"></i>67 inscritos
-                            </small>
-                            <button class="btn btn-kennedy btn-sm">
-                                <i class="bi bi-plus-circle me-1"></i>Inscribirse
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card event-card-citizen">
-                    <div class="event-image-citizen">
-                        <i class="bi bi-tree"></i>
-                        <span class="event-badge">Medio Ambiente</span>
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title fw-bold">Jornada de Arborización</h5>
-                        <p class="text-muted mb-2">
-                            <i class="bi bi-calendar3 me-2"></i>05/11/2025
-                        </p>
-                        <p class="text-muted mb-3">
-                            <i class="bi bi-geo-alt me-2"></i>Parque Timiza
-                        </p>
-                        <p class="card-text mb-3">
-                            Plantación de árboles nativos para recuperar zonas verdes de Kennedy.
-                        </p>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <small class="text-muted">
-                                <i class="bi bi-people me-1"></i>89 inscritos
-                            </small>
-                            <button class="btn btn-kennedy btn-sm">
-                                <i class="bi bi-plus-circle me-1"></i>Inscribirse
-                            </button>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </div>
