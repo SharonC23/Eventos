@@ -34,4 +34,7 @@ public class Evento {
 
     @OneToMany(mappedBy = "evento")
     private List<Imagenes> imagenes = new ArrayList<>();
+
+    @OneToMany(mappedBy = "evento")
+    private List<Comentario> comentarios = new ArrayList<>();
 }

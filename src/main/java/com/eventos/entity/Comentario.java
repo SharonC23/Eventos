@@ -21,4 +21,8 @@ public class Comentario {
     @ManyToOne
     @JoinColumn(name = "id_usuario")
     private Usuario usuario;
+
+    @ManyToOne
+    @JoinColumn(name = "id_evento")
+    private Evento evento;
 }

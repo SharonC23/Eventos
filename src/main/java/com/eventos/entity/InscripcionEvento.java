@@ -22,5 +22,7 @@ public class InscripcionEvento {
     @JoinColumn(name = "id_evento")
     private Evento evento;
 
+    private String telefono;
+
     private LocalDateTime fechaInscripcion;
 }
