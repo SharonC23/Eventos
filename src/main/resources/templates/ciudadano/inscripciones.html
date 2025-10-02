@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis Inscripciones - Alcaldía Local de Kennedy</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --kennedy-red: #CE1126;
+            --kennedy-yellow: #FCD116;
+            --kennedy-dark-red: #8B0000;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            min-height: 100vh;
+        }
+
+        .navbar-kennedy {
+            background: linear-gradient(135deg, var(--kennedy-red) 0%, var(--kennedy-dark-red) 100%);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, var(--kennedy-red) 0%, var(--kennedy-dark-red) 100%);
+            color: white;
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+            border-radius: 0 0 30px 30px;
+        }
+
+        .stats-card {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .stats-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+        }
+
+        .stats-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .filter-tabs {
+            background: white;
+            border-radius: 15px;
+            padding: 1rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+
+        .filter-tabs .nav-link {
+            color: #6c757d;
+            border: none;
+            border-radius: 25px;
+            padding: 0.75rem 1.5rem;
+            margin: 0 0.25rem;
+            transition: all 0.3s;
+        }
+
+        .filter-tabs .nav-link.active {
+            background: linear-gradient(135deg, var(--kennedy-red) 0%, var(--kennedy-dark-red) 100%);
+            color: white;
+        }
+
+        .inscripcion-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            margin-bottom: 1.5rem;
+        }
+
+        .inscripcion-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+        }
+
+        .inscripcion-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .status-badge {
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 0.85rem;
+        }
+
+        .status-confirmada {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-pendiente {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-cancelada {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .status-asistio {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+
+        .btn-kennedy {
+            background: linear-gradient(135deg, var(--kennedy-red) 0%, var(--kennedy-dark-red) 100%);
+            color: white;
+            border: none;
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            transition: all 0.3s;
+        }
+
+        .btn-kennedy:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            color: white;
+        }
+
+        .timeline-badge {
+            background: var(--kennedy-yellow);
+            color: var(--kennedy-dark-red);
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            font-weight: bold;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: #6c757d;
+        }
+
+        .empty-state i {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark navbar-kennedy">
+    <div class="container">
+        <a class="navbar-brand" href="/ciudadano/dashboard">
+            <i class="bi bi-calendar-event me-2"></i>
+            <strong>Alcaldía Local de Kennedy</strong>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/ciudadano/dashboard">
+                        <i class="bi bi-house-door"></i> Inicio
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/ciudadano/eventos">
+                        <i class="bi bi-calendar-event"></i> Eventos
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="/ciudadano/inscripciones">
+                        <i class="bi bi-bookmark-check"></i> Mis Inscripciones
+                    </a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                        <i class="bi bi-person-circle"></i> <span th:text="${usuario.nombre}">Usuario</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="/perfil"><i class="bi bi-person"></i> Mi Perfil</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="/logout"><i class="bi bi-box-arrow-right"></i> Cerrar Sesión</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero Section -->
+<div class="hero-section">
+    <div class="container text-center">
+        <h1 class="display-4 mb-3">
+            <i class="bi bi-bookmark-check"></i> Mis Inscripciones
+        </h1>
+        <p class="lead">Gestiona tus eventos y participaciones</p>
+    </div>
+</div>
+
+<div class="container mb-5">
+    <!-- Estadísticas -->
+    <div class="row g-4 mb-4">
+        <div class="col-md-3">
+            <div class="stats-card">
+                <div class="stats-icon text-success">
+                    <i class="bi bi-check-circle-fill"></i>
+                </div>
+                <h3 class="mb-0" th:text="${totalConfirmadas}">12</h3>
+                <p class="text-muted mb-0">Confirmadas</p>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stats-card">
+                <div class="stats-icon text-warning">
+                    <i class="bi bi-clock-fill"></i>
+                </div>
+                <h3 class="mb-0" th:text="${totalPendientes}">3</h3>
+                <p class="text-muted mb-0">Pendientes</p>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stats-card">
+                <div class="stats-icon text-info">
+                    <i class="bi bi-calendar-check-fill"></i>
+                </div>
+                <h3 class="mb-0" th:text="${totalAsistidas}">8</h3>
+                <p class="text-muted mb-0">Asistidas</p>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stats-card">
+                <div class="stats-icon text-danger">
+                    <i class="bi bi-x-circle-fill"></i>
+                </div>
+                <h3 class="mb-0" th:text="${totalCanceladas}">2</h3>
+                <p class="text-muted mb-0">Canceladas</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Filtros por estado -->
+    <div class="filter-tabs">
+        <ul class="nav nav-pills justify-content-center" id="statusTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="todas-tab" data-bs-toggle="pill" data-bs-target="#todas" type="button">
+                    <i class="bi bi-grid"></i> Todas
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="confirmadas-tab" data-bs-toggle="pill" data-bs-target="#confirmadas" type="button">
+                    <i class="bi bi-check-circle"></i> Confirmadas
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="pendientes-tab" data-bs-toggle="pill" data-bs-target="#pendientes" type="button">
+                    <i class="bi bi-clock"></i> Pendientes
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="asistidas-tab" data-bs-toggle="pill" data-bs-target="#asistidas" type="button">
+                    <i class="bi bi-calendar-check"></i> Asistidas
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="canceladas-tab" data-bs-toggle="pill" data-bs-target="#canceladas" type="button">
+                    <i class="bi bi-x-circle"></i> Canceladas
+                </button>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Contenido de tabs -->
+    <div class="tab-content" id="statusTabsContent">
+        <!-- Todas las inscripciones -->
+        <div class="tab-pane fade show active" id="todas" role="tabpanel">
+            <div class="row" th:if="${!inscripciones.empty}">
+                <div class="col-md-6" th:each="inscripcion : ${inscripciones}">
+                    <div class="inscripcion-card">
+                        <div class="row g-0">
+                            <div class="col-md-5">
+                                <img th:src="${inscripcion.evento.imagenUrl}" class="inscripcion-img" alt="Evento">
+                            </div>
+                            <div class="col-md-7">
+                                <div class="p-3">
+                                    <div class="d-flex justify-content-between align-items-start mb-2">
+                                            <span class="badge" th:classappend="${inscripcion.evento.categoria.color}"
+                                                  th:text="${inscripcion.evento.categoria.nombre}">Categoría</span>
+                                        <span class="status-badge"
+                                              th:classappend="${'status-' + inscripcion.estado.toLowerCase()}"
+                                              th:text="${inscripcion.estado}">Estado</span>
+                                    </div>
+
+                                    <h5 class="mb-2" th:text="${inscripcion.evento.nombre}">Nombre del Evento</h5>
+
+                                    <div class="mb-3">
+                                        <small class="text-muted d-block">
+                                            <i class="bi bi-calendar3 text-danger"></i>
+                                            <span th:text="${#temporals.format(inscripcion.evento.fecha, 'dd/MM/yyyy')}">15/02/2025</span>
+                                        </small>
+                                        <small class="text-muted d-block">
+                                            <i class="bi bi-clock text-danger"></i>
+                                            <span th:text="${inscripcion.evento.hora}">10:00 AM</span>
+                                        </small>
+                                        <small class="text-muted d-block">
+                                            <i class="bi bi-geo-alt text-danger"></i>
+                                            <span th:text="${inscripcion.evento.lugar}">Lugar</span>
+                                        </small>
+                                        <small class="text-muted d-block mt-2">
+                                            <i class="bi bi-bookmark-check text-danger"></i>
+                                            Inscrito el <span th:text="${#temporals.format(inscripcion.fechaInscripcion, 'dd/MM/yyyy')}">01/02/2025</span>
+                                        </small>
+                                    </div>
+
+                                    <div class="d-flex gap-2">
+                                        <a th:href="@{/ciudadano/evento/{id}(id=${inscripcion.evento.id})}"
+                                           class="btn btn-kennedy btn-sm flex-grow-1">
+                                            <i class="bi bi-eye"></i> Ver Evento
+                                        </a>
+                                        <button class="btn btn-outline-danger btn-sm"
+                                                th:if="${inscripcion.estado == 'CONFIRMADA'}"
+                                                th:onclick="'cancelarInscripcion(' + ${inscripcion.id} + ')'">
+                                            <i class="bi bi-x-circle"></i> Cancelar
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="empty-state" th:if="${inscripciones.empty}">
+                <i class="bi bi-inbox"></i>
+                <h4>No tienes inscripciones</h4>
+                <p>Explora los eventos disponibles y comienza a participar</p>
+                <a href="/ciudadano/eventos" class="btn btn-kennedy">
+                    <i class="bi bi-calendar-event"></i> Ver Eventos
+                </a>
+            </div>
+        </div>
+
+        <!-- Confirmadas -->
+        <div class="tab-pane fade" id="confirmadas" role="tabpanel">
+            <div class="row">
+                <div class="col-md-6" th:each="inscripcion : ${inscripcionesConfirmadas}">
+                    <!-- Mismo contenido que arriba -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Pendientes -->
+        <div class="tab-pane fade" id="pendientes" role="tabpanel">
+            <div class="row">
+                <div class="col-md-6" th:each="inscripcion : ${inscripcionesPendientes}">
+                    <!-- Mismo contenido que arriba -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Asistidas -->
+        <div class="tab-pane fade" id="asistidas" role="tabpanel">
+            <div class="row">
+                <div class="col-md-6" th:each="inscripcion : ${inscripcionesAsistidas}">
+                    <!-- Mismo contenido que arriba -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Canceladas -->
+        <div class="tab-pane fade" id="canceladas" role="tabpanel">
+            <div class="row">
+                <div class="col-md-6" th:each="inscripcion : ${inscripcionesCanceladas}">
+                    <!-- Mismo contenido que arriba -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    function cancelarInscripcion(id) {
+        if (confirm('¿Estás seguro de que deseas cancelar esta inscripción?')) {
+            fetch(`/api/inscripciones/${id}/cancelar`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    location.reload();
+                } else {
+                    alert('Error al cancelar la inscripción');
+                }
+            });
+        }
+    }
+</script>
+</body>
+</html>

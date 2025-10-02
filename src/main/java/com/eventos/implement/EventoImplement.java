@@ -19,6 +19,11 @@ public class EventoImplement implements EventoService {
     }
 
     @Override
+    public Evento obtenerPorId(Long id) {
+        return eventoRepository.findById(id).orElseThrow();
+    }
+
+    @Override
     public List<Evento> obtenerTodos() {
         return eventoRepository.findAll();
     }

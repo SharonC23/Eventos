@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eventos Comunitarios - Alcaldía Local de Kennedy</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --kennedy-red: #CE1126;
+            --kennedy-yellow: #FCD116;
+            --kennedy-dark-red: #8B0000;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            min-height: 100vh;
+        }
+
+        .navbar-kennedy {
+            background: linear-gradient(135deg, var(--kennedy-red) 0%, var(--kennedy-dark-red) 100%);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, var(--kennedy-red) 0%, var(--kennedy-dark-red) 100%);
+            color: white;
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+            border-radius: 0 0 30px 30px;
+        }
+
+        .filter-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .category-badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin: 0.25rem;
+            border: 2px solid transparent;
+        }
+
+        .category-badge:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .category-badge.active {
+            border-color: var(--kennedy-red);
+            box-shadow: 0 0 0 3px rgba(206, 17, 38, 0.2);
+        }
+
+        .event-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            height: 100%;
+            padding: 15px;
+        }
+
+        .event-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+        }
+
+        .event-card-img {
+            height: 200px;
+            object-fit: cover;
+            width: 100%;
+        }
+
+        .event-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--kennedy-yellow);
+            color: var(--kennedy-dark-red);
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 0.85rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .destacado-badge {
+            background: linear-gradient(135deg, var(--kennedy-red), var(--kennedy-dark-red));
+            color: white;
+        }
+
+        .btn-kennedy {
+            background: linear-gradient(135deg, var(--kennedy-red) 0%, var(--kennedy-dark-red) 100%);
+            color: white;
+            border: none;
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            transition: all 0.3s;
+        }
+
+        .btn-kennedy:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            color: white;
+        }
+
+        .rating-stars {
+            color: var(--kennedy-yellow);
+        }
+
+        .section-title {
+            color: var(--kennedy-red);
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid var(--kennedy-yellow);
+            display: inline-block;
+        }
+
+        .stats-badge {
+            background: #f8f9fa;
+            padding: 0.5rem 1rem;
+            border-radius: 10px;
+            margin: 0.25rem;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark navbar-kennedy">
+    <div class="container">
+        <a class="navbar-brand" href="/ciudadano/dashboard">
+            <i class="bi bi-calendar-event me-2"></i>
+            <strong>Alcaldía Local de Kennedy</strong>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/ciudadano/dashboard">
+                        <i class="bi bi-house-door"></i> Inicio
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="/ciudadano/eventos">
+                        <i class="bi bi-calendar-event"></i> Eventos
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/ciudadano/inscripciones">
+                        <i class="bi bi-bookmark-check"></i> Mis Inscripciones
+                    </a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                        <i class="bi bi-person-circle"></i> <!--span th:text="${usuario.nombre}">Usuario</span-->
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="/perfil"><i class="bi bi-person"></i> Mi Perfil</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="/logout"><i class="bi bi-box-arrow-right"></i> Cerrar Sesión</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero Section -->
+<div class="hero-section">
+    <div class="container text-center">
+        <h1 class="display-4 mb-3">
+            <i class="bi bi-calendar-event"></i> Eventos Comunitarios
+        </h1>
+        <p class="lead">Descubre y participa en las actividades de tu localidad</p>
+    </div>
+</div>
+
+<div class="container mb-5">
+
+    <!-- Eventos Destacados -->
+    <div class="mb-5">
+        <h2 class="section-title">
+            <i class="bi bi-star-fill"></i> Eventos Destacados
+        </h2>
+        <p class="text-muted mb-4">Los eventos más populares de la comunidad</p>
+
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-4" th:each="evento : ${eventosDestacados}">
+                <div class="event-card">
+                    <div class="position-relative">
+                        <img th:src="${evento.imagenUrl}" class="event-card-img" alt="Evento">
+                        <span class="event-badge destacado-badge">
+                                <i class="bi bi-star-fill"></i> Destacado
+                            </span>
+                    </div>
+                    <div class="p-3">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <span class="badge" th:classappend="${evento.categoria.color}" th:text="${evento.categoria.nombre}">Categoría</span>
+                            <div class="rating-stars">
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-half"></i>
+                                <small class="text-muted ms-1" th:text="${evento.promedioCalificacion}">4.5</small>
+                            </div>
+                        </div>
+
+                        <h5 class="card-title mb-2" th:text="${evento.nombre}">Nombre del Evento</h5>
+                        <p class="card-text text-muted small mb-3" th:text="${evento.descripcionCorta}">Descripción breve del evento...</p>
+
+                        <div class="mb-3">
+                            <div class="stats-badge">
+                                <i class="bi bi-calendar3 text-danger"></i>
+                                <small th:text="${#temporals.format(evento.fecha, 'dd/MM/yyyy')}">15/02/2025</small>
+                            </div>
+                            <div class="stats-badge">
+                                <i class="bi bi-geo-alt text-danger"></i>
+                                <small th:text="${evento.lugar}">Lugar</small>
+                            </div>
+                            <div class="stats-badge">
+                                <i class="bi bi-people text-danger"></i>
+                                <small><span th:text="${evento.totalInscripciones}">150</span> inscritos</small>
+                            </div>
+                        </div>
+
+                        <div class="d-flex gap-2">
+                            <a th:href="@{/ciudadano/evento/{id}(id=${evento.id})}" class="btn btn-kennedy flex-grow-1">
+                                <i class="bi bi-eye"></i> Ver Detalles
+                            </a>
+                            <button class="btn btn-outline-danger" th:if="${!evento.inscrito}">
+                                <i class="bi bi-bookmark"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Todos los Eventos -->
+    <div>
+        <h2 class="section-title">
+            <i class="bi bi-calendar-check"></i> Todos los Eventos
+        </h2>
+        <p class="text-muted mb-4">Explora todos los eventos disponibles en tu localidad</p>
+
+        <div class="row g-4" id="eventosContainer">
+            <div class="col-md-6 col-lg-4" th:each="evento : ${eventos}">
+                <div class="event-card" th:attr="data-category=${evento.categoria.idCategoriaEvento}">
+                    <div class="position-relative">
+                        <img th:if="${!#lists.isEmpty(evento.imagenes)}"
+                             th:src="${evento.imagenes[0].ruta}"
+                             alt="Imagen del evento"
+                             class="event-card-img"/>
+                    </div>
+                    <div class="p-3">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <span class="badge" th:classappend="${evento.categoria.color}" th:text="${evento.categoria.nombreCategoria}">Categoría</span>
+                            <!--div class="rating-stars" th:if="${evento.totalComentarios > 0}">
+                                <i class="bi" th:each="i : ${#numbers.sequence(1, 5)}"
+                                   th:classappend="${i <= evento.promedioCalificacion ? 'bi-star-fill' : 'bi-star'}"></i>
+                                <small class="text-muted ms-1" th:text="${evento.promedioCalificacion}">0</small>
+                            </div-->
+                        </div>
+
+                        <h5 class="card-title mb-2" th:text="${evento.nombre}">Nombre del Evento</h5>
+                        <p class="card-text text-muted small mb-3" th:text="${evento.descripcion}"></p>
+
+                        <div class="mb-3">
+                            <div class="stats-badge">
+                                <i class="bi bi-calendar3 text-danger"></i>
+                                <small th:text="${#temporals.format(evento.fecha, 'dd/MM/yyyy')}"></small>
+                            </div>
+                            <div class="stats-badge">
+                                <i class="bi bi-clock text-danger"></i>
+                                <small th:text="${evento.hora}"></small>
+                            </div>
+                            <!--div class="stats-badge" th:if="${evento.totalComentarios > 0}">
+                                <i class="bi bi-chat-dots text-danger"></i>
+                                <small><span th:text="${evento.totalComentarios}"></span> comentarios</small>
+                            </div-->
+                        </div>
+
+                        <div class="d-flex gap-2">
+                            <a th:href="@{/ciudadanos/evento/{id}(id=${evento.idEvento})}" class="btn btn-kennedy flex-grow-1">
+                                <i class="bi bi-eye"></i> Ver Detalles
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Filtro por categoría
+    document.querySelectorAll('.category-badge').forEach(badge => {
+        badge.addEventListener('click', function() {
+            document.querySelectorAll('.category-badge').forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+
+            const category = this.dataset.category;
+            const eventos = document.querySelectorAll('#eventosContainer > div');
+
+            eventos.forEach(evento => {
+                if (category === 'todas' || evento.querySelector('.event-card').dataset.category === category) {
+                    evento.style.display = 'block';
+                } else {
+                    evento.style.display = 'none';
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>
