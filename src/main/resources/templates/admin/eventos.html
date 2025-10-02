@@ -286,9 +286,6 @@
                         </td>
                         <td>
                             <div class="table-actions">
-                                <button class="btn btn-sm btn-outline-primary" title="Ver detalles">
-                                    <i class="bi bi-eye"></i>
-                                </button>
                                 <button class="btn btn-sm btn-outline-warning" data-bs-toggle="modal" data-bs-target="#modalEditarEvento" title="Editar"
                                         th:attr="data-id=${evento.idEvento}, data-nombre=${evento.nombre}, data-estado=${evento.estado}, data-categoria=${evento.categoria.idCategoriaEvento}, data-fecha=${evento.fecha}, data-hora=${evento.hora}, data-lugar=${evento.lugar}, data-descripcion=${evento.descripcion}">
                                     <i class="bi bi-pencil"></i>

@@ -5,14 +5,37 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="487b5b31-c280-4090-8f4c-72898b06b473" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/SEEDERS" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/eventos/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/eventos/config/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/eventos/controller/PublicController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/eventos/controller/PublicController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/dashboard.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/imagenes/0fc28b62-ee2d-442f-ae8d-04b377d70e3d_fondo1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/imagenes/42bb0d99-86b8-44ae-acb4-f7e6409f821d_banner chelsea.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/imagenes/738c47c9-17f5-418e-9037-09cde3d3b60c_banner chelsea.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/imagenes/7ba4aabc-5560-4cb2-bd3c-525ef1db3ba7_chica2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/imagenes/93a2e9ca-5cf3-4ad4-8da3-d8cd1c1a1e20_chica2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/imagenes/9d8d4eaa-c1ae-4f7d-b858-a08401ded7da_chica1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/imagenes/a8db41bc-3601-4b30-bc38-6509c113b2ed_fondo3.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/imagenes/c63023c7-c0aa-4870-b27e-b96866963ed4_chica2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/imagenes/c780eea2-f14a-4931-8a8a-9f9b2ba5a617_fondo2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/imagenes/e3f1d80e-a3dc-4d5e-aa1e-e9f883654742_chica1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/eventos/EventosApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/eventos/EventosApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/eventos/repository/CategoriaRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/eventos/repository/CategoriaRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/eventos/repository/EventoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/eventos/repository/EventoRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/eventos/repository/ImagenRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/eventos/repository/ImagenRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/eventos.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/eventos.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/inscripciones.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/inscripciones.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/ciudadano/eventos.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/ciudadano/eventos.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/eventos/config/SecurityConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/eventos/config/SecurityConfig.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/eventos/controller/PublicController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/eventos/controller/PublicController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/ciudadano/inscripciones.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/ciudadano/inscripciones.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/registro.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/registro.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/eventos/EventosApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/eventos/EventosApplication.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/eventos/repository/CategoriaRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/eventos/repository/CategoriaRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/eventos/repository/EventoRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/eventos/repository/EventoRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/eventos/repository/ImagenRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/eventos/repository/ImagenRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/admin/eventos.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/admin/eventos.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/admin/inscripciones.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/admin/inscripciones.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/ciudadano/eventos.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/ciudadano/eventos.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/registro.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/registro.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

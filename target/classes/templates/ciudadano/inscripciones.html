@@ -229,45 +229,9 @@
                 <i class="bi bi-inbox"></i>
                 <h4>No tienes inscripciones</h4>
                 <p>Explora los eventos disponibles y comienza a participar</p>
-                <a href="/ciudadano/eventos" class="btn btn-kennedy">
+                <a href="/ciudadanos/eventos" class="btn btn-kennedy">
                     <i class="bi bi-calendar-event"></i> Ver Eventos
                 </a>
-            </div>
-        </div>
-
-        <!-- Confirmadas -->
-        <div class="tab-pane fade" id="confirmadas" role="tabpanel">
-            <div class="row">
-                <div class="col-md-6" th:each="inscripcion : ${inscripcionesConfirmadas}">
-                    <!-- Mismo contenido que arriba -->
-                </div>
-            </div>
-        </div>
-
-        <!-- Pendientes -->
-        <div class="tab-pane fade" id="pendientes" role="tabpanel">
-            <div class="row">
-                <div class="col-md-6" th:each="inscripcion : ${inscripcionesPendientes}">
-                    <!-- Mismo contenido que arriba -->
-                </div>
-            </div>
-        </div>
-
-        <!-- Asistidas -->
-        <div class="tab-pane fade" id="asistidas" role="tabpanel">
-            <div class="row">
-                <div class="col-md-6" th:each="inscripcion : ${inscripcionesAsistidas}">
-                    <!-- Mismo contenido que arriba -->
-                </div>
-            </div>
-        </div>
-
-        <!-- Canceladas -->
-        <div class="tab-pane fade" id="canceladas" role="tabpanel">
-            <div class="row">
-                <div class="col-md-6" th:each="inscripcion : ${inscripcionesCanceladas}">
-                    <!-- Mismo contenido que arriba -->
-                </div>
             </div>
         </div>
     </div>

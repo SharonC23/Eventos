@@ -1,0 +1,19 @@
+@Bean
+    CommandLineRunner commandLineRunner(UsuarioRepository usuarioRepository, PasswordEncoder passwordEncoder){
+        return args -> {
+
+            if(usuarioRepository.findByEmail("sharon@gmail.com").isEmpty()){
+                Usuario usuario = new Usuario();
+
+                usuario.setCedula("1234567890");
+                usuario.setRol(RolUsuario.ADMINISTRADOR);
+                usuario.setNombreCompleto("Sharon Yirley Carrillo Virguez");
+                usuario.setPassword(passwordEncoder.encode("sharon1234"));
+                usuario.setEmail("sharon@gmail.com");
+
+                usuarioRepository.save(usuario);
+            }
+
+            if
+        };
+    }

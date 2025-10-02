@@ -220,38 +220,6 @@
 
     <div class="card">
         <div class="card-body">
-            <div class="row g-3">
-                <div class="col-md-4">
-                    <div class="search-box">
-                        <i class="bi bi-search"></i>
-                        <input type="text" class="form-control" placeholder="Buscar por usuario o evento...">
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <select class="form-select">
-                        <option value="">Todos los eventos</option>
-                        <option th:each="evento : ${eventos}"
-                                th:value="${evento.id}"
-                                th:text="${evento.nombre}">Festival de Arte</option>
-                    </select>
-                </div>
-                <div class="col-md-2">
-                    <select class="form-select">
-                        <option value="">Todos los estados</option>
-                        <option value="confirmada">Confirmadas</option>
-                        <option value="pendiente">Pendientes</option>
-                        <option value="cancelada">Canceladas</option>
-                    </select>
-                </div>
-                <div class="col-md-3">
-                    <input type="date" class="form-control" placeholder="Fecha de inscripción">
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="card">
-        <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-hover align-middle">
                     <thead class="table-light">

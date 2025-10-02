@@ -200,6 +200,18 @@
         .my-event-card:hover {
             box-shadow: 0 5px 20px rgba(0,0,0,0.12);
         }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: #6c757d;
+        }
+
+        .empty-state i {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
     </style>
 </head>
 <body>
@@ -249,6 +261,14 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="empty-state" th:if="${proximosEventos.empty}">
+            <i class="bi bi-inbox"></i>
+            <h4>No tienes inscripciones</h4>
+            <p>Explora los eventos disponibles y comienza a participar</p>
+            <a href="/ciudadanos/eventos" class="btn btn-kennedy">
+                <i class="bi bi-calendar-event"></i> Ver Eventos
+            </a>
         </div>
     </div>
 </div>
