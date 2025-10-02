@@ -16,13 +16,13 @@ public class InscripcionImplement implements InscripcionService {
     InscripcionRepository inscripcionRepository;
 
     @Override
-    public int obtenerNumeroDeIncripcionerPorEvento(Evento evento) {
-        return inscripcionRepository.countByEvento(evento);
+    public boolean validarInscripcion(Usuario usuario, Evento evento) {
+        return inscripcionRepository.existsByUsuarioAndEvento(usuario, evento);
     }
 
     @Override
-    public boolean validarInscripcion(Usuario usuario, Evento evento) {
-        return inscripcionRepository.existsByUsuarioAndEvento(usuario, evento);
+    public Long obtenerNumeroDeIncripcionerPorEvento(Evento evento) {
+        return inscripcionRepository.countByEvento(evento);
     }
 
     @Override
@@ -38,5 +38,20 @@ public class InscripcionImplement implements InscripcionService {
     @Override
     public List<InscripcionEvento> obtenerPorUsuario(Usuario usuario) {
         return inscripcionRepository.findByUsuario(usuario);
+    }
+
+    @Override
+    public List<InscripcionEvento> obtenerTodas() {
+        return inscripcionRepository.findAll();
+    }
+
+    @Override
+    public InscripcionEvento obtenerPorId(Long id) {
+        return inscripcionRepository.findById(id).orElseThrow();
+    }
+
+    @Override
+    public void eliminar(InscripcionEvento inscripcionEvento) {
+        inscripcionRepository.delete(inscripcionEvento);
     }
 }

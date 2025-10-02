@@ -48,6 +48,7 @@ public class CiudadanoController {
     @GetMapping("/eventos")
     public String eventos(Model model){
         model.addAttribute("eventos", eventoService.obtenerTodos());
+        model.addAttribute("eventosDestacados", eventoService.obtenerTop5Eventos());
         return "/ciudadano/eventos";
     }
 

@@ -26,7 +26,7 @@ public class Evento {
 
     private String descripcion;
 
-    private String estado; //aqui pueden ser proximos, finalizados
+    private String estado;
 
     @ManyToOne
     @JoinColumn(name = "id_categoria_evento")
@@ -37,4 +37,16 @@ public class Evento {
 
     @OneToMany(mappedBy = "evento")
     private List<Comentario> comentarios = new ArrayList<>();
+
+    @OneToMany(mappedBy = "evento")
+    private List<InscripcionEvento> inscripciones;
+
+    @Transient
+    private Long totalInscritos;
+
+    @Transient
+    private Long totalAsistieron;
+
+    @Transient
+    private Double porcentajeParticipacion;
 }

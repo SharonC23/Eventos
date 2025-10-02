@@ -24,5 +24,7 @@ public class InscripcionEvento {
 
     private String telefono;
 
+    private boolean asistencia = false;
+
     private LocalDateTime fechaInscripcion;
 }

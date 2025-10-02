@@ -1,6 +1,7 @@
 package com.eventos.controller;
 
 import com.eventos.entity.Usuario;
+import com.eventos.service.EventoService;
 import com.eventos.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -17,6 +18,9 @@ public class AdminController {
     @Autowired
     UsuarioService usuarioService;
 
+    @Autowired
+    EventoService eventoService;
+
     @ModelAttribute
     public Usuario usuario(Authentication authentication){
         return usuarioService.obtenerPorEmail(authentication.getName());
@@ -26,21 +30,7 @@ public class AdminController {
     public String index(Model model, Authentication authentication){
         model.addAttribute("admin", usuario(authentication));
         model.addAttribute("paginaActual", "index");
+        model.addAttribute("eventosDestacados", eventoService.obtenerTop5Eventos());
         return "/admin/dashboard";
-    }
-
-    @GetMapping("/usuarios")
-    public String usuarios(Model model, Authentication authentication){
-        return "/admin/usuarios";
-    }
-
-    @GetMapping("/inscripciones")
-    public String inscripciones(Model model, Authentication authentication){
-        return "/admin/inscripciones";
-    }
-
-    @GetMapping("/comentarios")
-    public String comentarios(Model model, Authentication authentication){
-        return "/admin/comentarios";
     }
 }

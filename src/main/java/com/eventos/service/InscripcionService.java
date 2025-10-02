@@ -10,7 +10,7 @@ import java.util.List;
 @Service
 public interface InscripcionService {
 
-    int obtenerNumeroDeIncripcionerPorEvento(Evento evento);
+    Long obtenerNumeroDeIncripcionerPorEvento(Evento evento);
 
     boolean validarInscripcion(Usuario usuario, Evento evento);
 
@@ -19,4 +19,10 @@ public interface InscripcionService {
     List<InscripcionEvento> obtenerPorUsuarioYEstadoEvento(Usuario usuario, String estado);
 
     List<InscripcionEvento> obtenerPorUsuario(Usuario usuario);
+
+    List<InscripcionEvento> obtenerTodas();
+
+    InscripcionEvento obtenerPorId(Long id);
+
+    void eliminar(InscripcionEvento inscripcionEvento);
 }

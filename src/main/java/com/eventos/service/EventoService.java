@@ -15,5 +15,9 @@ public interface EventoService {
 
     List<Evento> obtenerTodos();
 
+    List<Evento> obtenerTop5Eventos();
+
     void eliminarEvento(Long id);
+
+    List<Evento> listarConParticipacion(String nombre, String categoria, String estado);
 }

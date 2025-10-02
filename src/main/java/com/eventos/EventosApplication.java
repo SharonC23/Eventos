@@ -10,7 +10,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @SpringBootApplication
-public class EventosApplication {
+public class
+EventosApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(EventosApplication.class, args);

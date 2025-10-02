@@ -33,9 +33,6 @@ public class EventoController {
     @Autowired
     ImagenService imagenService;
 
-    @Autowired
-    EventoSpecification eventoSpecification;
-
     @GetMapping("/")
     public String eventos(
             Model model,
@@ -44,7 +41,7 @@ public class EventoController {
             @RequestParam(name = "estado", required = false) String estado
     ){
         model.addAttribute("categorias", categoriaService.obtenerTodas());
-        model.addAttribute("eventos", eventoSpecification.filtrarEventos(nombre, categoria, estado));
+        model.addAttribute("eventos", eventoService.listarConParticipacion(nombre, categoria, estado));
         model.addAttribute("paginaActual", "eventos");
         return "admin/eventos";
     }

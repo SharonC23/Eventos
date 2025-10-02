@@ -139,6 +139,7 @@
             border-radius: 15px;
             box-shadow: 0 5px 20px rgba(0,0,0,0.08);
             border: none;
+            padding: 10px;
         }
 
         .card-custom .card-header {
@@ -226,6 +227,39 @@
                 margin-left: 0;
             }
         }
+
+        .quick-action-btn {
+    border: none;
+    background: none;
+    padding: 0;
+    width: 100%;
+    text-align: left;
+}
+
+/* Tarjeta */
+.quick-action-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    width: 100%;
+}
+
+.quick-action-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+}
+
+/* Ícono */
+.quick-action-icon {
+    font-size: 28px;
+    color: #dc3545; /* rojo estilo Bootstrap danger */
+}
     </style>
 </head>
 <body>
@@ -236,80 +270,7 @@
     <div class="top-navbar d-flex justify-content-between align-items-center">
         <div>
             <h4 class="mb-0 fw-bold text-dark">Dashboard Administrativo</h4>
-            <small class="text-muted">Bienvenido, <!--span th:text="${usuario.nombre}">Administrador</span--></small>
-        </div>
-        <div class="d-flex align-items-center gap-3">
-            <div class="position-relative">
-                <i class="bi bi-bell fs-4 text-muted"></i>
-                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                        3
-                    </span>
-            </div>
-            <div class="d-flex align-items-center">
-                <div class="bg-danger text-white rounded-circle d-flex align-items-center justify-content-center"
-                     style="width: 40px; height: 40px;">
-                    <i class="bi bi-person-fill"></i>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row g-4 mb-4">
-        <div class="col-md-3">
-            <div class="stat-card">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                        <div class="stat-label">Total Eventos</div>
-                        <div class="stat-number" th:text="${totalEventos}">45</div>
-                        <small class="text-success"><i class="bi bi-arrow-up"></i> +12% este mes</small>
-                    </div>
-                    <div class="stat-icon red">
-                        <i class="bi bi-calendar-event"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="stat-card">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                        <div class="stat-label">Usuarios Registrados</div>
-                        <div class="stat-number" th:text="${totalUsuarios}">1,234</div>
-                        <small class="text-success"><i class="bi bi-arrow-up"></i> +8% este mes</small>
-                    </div>
-                    <div class="stat-icon blue">
-                        <i class="bi bi-people"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="stat-card">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                        <div class="stat-label">Inscripciones</div>
-                        <div class="stat-number" th:text="${totalInscripciones}">3,567</div>
-                        <small class="text-success"><i class="bi bi-arrow-up"></i> +25% este mes</small>
-                    </div>
-                    <div class="stat-icon green">
-                        <i class="bi bi-clipboard-check"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="stat-card">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                        <div class="stat-label">Comentarios</div>
-                        <div class="stat-number" th:text="${totalComentarios}">892</div>
-                        <small class="text-warning"><i class="bi bi-dash"></i> Sin cambios</small>
-                    </div>
-                    <div class="stat-icon yellow">
-                        <i class="bi bi-chat-dots"></i>
-                    </div>
-                </div>
-            </div>
+            <small class="text-muted">Bienvenido, <span th:text="${usuario.nombreCompleto}"></span></small>
         </div>
     </div>
 
@@ -317,209 +278,89 @@
         <div class="col-12">
             <h5 class="fw-bold mb-3">Acciones Rápidas</h5>
         </div>
-        <div class="col-md-3">
-            <div class="quick-action-card" onclick="window.location.href='/admin/eventos/nuevo'">
-                <div class="quick-action-icon">
-                    <i class="bi bi-plus-circle"></i>
+        <form th:action="@{/admin/eventos/}" class="col-md-6">
+            <button type="submit" class="quick-action-btn">
+                <div class="quick-action-card">
+                    <div class="quick-action-icon">
+                        <i class="bi bi-plus-circle"></i>
+                    </div>
+                    <h6 class="fw-bold mb-0">Crear Evento</h6>
                 </div>
-                <h6 class="fw-bold mb-0">Crear Evento</h6>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="quick-action-card" onclick="window.location.href='/admin/categorias/nueva'">
-                <div class="quick-action-icon">
-                    <i class="bi bi-tag"></i>
+            </button>
+        </form>
+
+        <form th:action="@{/admin/categorias/}" class="col-md-6">
+            <button type="submit" class="quick-action-btn">
+                <div class="quick-action-card">
+                    <div class="quick-action-icon">
+                        <i class="bi bi-tag"></i>
+                    </div>
+                    <h6 class="fw-bold mb-0">Nueva Categoria</h6>
                 </div>
-                <h6 class="fw-bold mb-0">Nueva Categoría</h6>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="quick-action-card" onclick="window.location.href='/admin/reportes'">
-                <div class="quick-action-icon">
-                    <i class="bi bi-file-earmark-bar-graph"></i>
-                </div>
-                <h6 class="fw-bold mb-0">Ver Reportes</h6>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="quick-action-card" onclick="window.location.href='/admin/usuarios'">
-                <div class="quick-action-icon">
-                    <i class="bi bi-person-plus"></i>
-                </div>
-                <h6 class="fw-bold mb-0">Gestionar Usuarios</h6>
-            </div>
-        </div>
+            </button>
+        </form>
     </div>
 
     <div class="row g-4">
         <div class="col-lg-8">
             <div class="card-custom">
-                <div class="card-header d-flex justify-content-between align-items-center">
-                    <span><i class="bi bi-calendar-event me-2"></i>Eventos Recientes</span>
-                    <a href="/admin/eventos" class="btn btn-sm btn-kennedy-yellow">Ver Todos</a>
-                </div>
-                <div class="card-body p-0">
-                    <div class="table-responsive">
-                        <table class="table table-custom table-hover">
-                            <thead>
-                            <tr>
-                                <th>Evento</th>
-                                <th>Categoría</th>
-                                <th>Fecha</th>
-                                <th>Inscritos</th>
-                                <th>Estado</th>
-                                <th>Acciones</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr th:each="evento : ${eventosRecientes}">
-                                <td>
-                                    <strong th:text="${evento.nombre}">Festival Cultural</strong>
-                                </td>
-                                <td>
-                                    <span class="badge bg-danger" th:text="${evento.categoria.nombre}">Cultura</span>
-                                </td>
-                                <td th:text="${#temporals.format(evento.fecha, 'dd/MM/yyyy')}">15/10/2025</td>
-                                <td>
-                                    <span class="badge bg-primary" th:text="${evento.totalInscritos}">45</span>
-                                </td>
-                                <td>
-                                    <span class="badge badge-status bg-success">Activo</span>
-                                </td>
-                                <td>
-                                    <button class="btn btn-sm btn-outline-primary" title="Editar">
-                                        <i class="bi bi-pencil"></i>
-                                    </button>
-                                    <button class="btn btn-sm btn-outline-danger" title="Eliminar">
-                                        <i class="bi bi-trash"></i>
-                                    </button>
-                                </td>
-                            </tr>
+                <div class="card mb-5">
+                    <div class="card-header">
+                        <h2 class="section-title mb-0">
+                            <i class="bi bi-star-fill text-warning"></i> Eventos Destacados
+                        </h2>
+                    </div>
 
-                            <tr>
-                                <td><strong>Festival Cultural Kennedy</strong></td>
-                                <td><span class="badge bg-danger">Cultura</span></td>
-                                <td>15/10/2025</td>
-                                <td><span class="badge bg-primary">156</span></td>
-                                <td><span class="badge badge-status bg-success">Activo</span></td>
-                                <td>
-                                    <button class="btn btn-sm btn-outline-primary"><i class="bi bi-pencil"></i></button>
-                                    <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><strong>Ciclovía Comunitaria</strong></td>
-                                <td><span class="badge bg-success">Deporte</span></td>
-                                <td>20/10/2025</td>
-                                <td><span class="badge bg-primary">89</span></td>
-                                <td><span class="badge badge-status bg-success">Activo</span></td>
-                                <td>
-                                    <button class="btn btn-sm btn-outline-primary"><i class="bi bi-pencil"></i></button>
-                                    <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><strong>Taller de Tecnología</strong></td>
-                                <td><span class="badge bg-primary">Educación</span></td>
-                                <td>25/10/2025</td>
-                                <td><span class="badge bg-primary">34</span></td>
-                                <td><span class="badge badge-status bg-warning text-dark">Pendiente</span></td>
-                                <td>
-                                    <button class="btn btn-sm btn-outline-primary"><i class="bi bi-pencil"></i></button>
-                                    <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-custom table-hover align-middle">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Evento</th>
+                                    <th>Categoría</th>
+                                    <th>Fecha</th>
+                                    <th>Inscritos</th>
+                                    <th>Lugar</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="evento, iterStat : ${eventosDestacados}">
+                                    <td>
+                        <span th:classappend="${iterStat.index == 0 ? 'badge bg-warning text-dark'
+                                     : (iterStat.index == 1 ? 'badge bg-secondary'
+                                     : (iterStat.index == 2 ? 'badge bg-danger'
+                                     : 'badge bg-dark'))}">
+                            <i class="bi bi-trophy-fill"></i>
+                            <span th:text="${iterStat.index + 1}"></span>
+                        </span>
+                                    </td>
 
-        <div class="col-lg-4">
-            <div class="card-custom">
-                <div class="card-header">
-                    <i class="bi bi-bar-chart me-2"></i>Categorías Más Populares
-                </div>
-                <div class="card-body">
-                    <div class="mb-4">
-                        <div class="d-flex justify-content-between mb-2">
-                            <span class="fw-bold">Cultura</span>
-                            <span class="text-muted">45%</span>
-                        </div>
-                        <div class="progress" style="height: 10px;">
-                            <div class="progress-bar" style="width: 45%; background: var(--kennedy-red);"></div>
-                        </div>
-                    </div>
-                    <div class="mb-4">
-                        <div class="d-flex justify-content-between mb-2">
-                            <span class="fw-bold">Deporte</span>
-                            <span class="text-muted">30%</span>
-                        </div>
-                        <div class="progress" style="height: 10px;">
-                            <div class="progress-bar bg-success" style="width: 30%;"></div>
-                        </div>
-                    </div>
-                    <div class="mb-4">
-                        <div class="d-flex justify-content-between mb-2">
-                            <span class="fw-bold">Educación</span>
-                            <span class="text-muted">15%</span>
-                        </div>
-                        <div class="progress" style="height: 10px;">
-                            <div class="progress-bar bg-primary" style="width: 15%;"></div>
-                        </div>
-                    </div>
-                    <div class="mb-0">
-                        <div class="d-flex justify-content-between mb-2">
-                            <span class="fw-bold">Otros</span>
-                            <span class="text-muted">10%</span>
-                        </div>
-                        <div class="progress" style="height: 10px;">
-                            <div class="progress-bar" style="width: 10%; background: var(--kennedy-yellow);"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <img th:if="${!#lists.isEmpty(evento.imagenes)}"
+                                                 th:src="@{${evento.imagenes[0].ruta}}"
+                                                 class="rounded me-2"
+                                                 style="width: 50px; height: 40px; object-fit: cover;" />
+                                            <strong th:text="${evento.nombre}">Nombre Evento</strong>
+                                        </div>
+                                    </td>
 
-            <div class="card-custom mt-4">
-                <div class="card-header">
-                    <i class="bi bi-clock-history me-2"></i>Actividad Reciente
-                </div>
-                <div class="card-body">
-                    <div class="d-flex mb-3">
-                        <div class="flex-shrink-0">
-                            <div class="bg-success text-white rounded-circle d-flex align-items-center justify-content-center"
-                                 style="width: 35px; height: 35px;">
-                                <i class="bi bi-person-plus"></i>
-                            </div>
-                        </div>
-                        <div class="flex-grow-1 ms-3">
-                            <p class="mb-0 small"><strong>Nuevo usuario registrado</strong></p>
-                            <small class="text-muted">Hace 5 minutos</small>
-                        </div>
-                    </div>
-                    <div class="d-flex mb-3">
-                        <div class="flex-shrink-0">
-                            <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center"
-                                 style="width: 35px; height: 35px;">
-                                <i class="bi bi-calendar-plus"></i>
-                            </div>
-                        </div>
-                        <div class="flex-grow-1 ms-3">
-                            <p class="mb-0 small"><strong>Evento creado</strong></p>
-                            <small class="text-muted">Hace 1 hora</small>
-                        </div>
-                    </div>
-                    <div class="d-flex">
-                        <div class="flex-shrink-0">
-                            <div class="bg-warning text-dark rounded-circle d-flex align-items-center justify-content-center"
-                                 style="width: 35px; height: 35px;">
-                                <i class="bi bi-chat"></i>
-                            </div>
-                        </div>
-                        <div class="flex-grow-1 ms-3">
-                            <p class="mb-0 small"><strong>Nuevo comentario</strong></p>
-                            <small class="text-muted">Hace 2 horas</small>
+                                    <td>
+                        <span class="badge" th:classappend="${evento.categoria.color}"
+                              th:text="${evento.categoria.nombreCategoria}">Categoría</span>
+                                    </td>
+
+                                    <td th:text="${#temporals.format(evento.fecha, 'dd/MM/yyyy')}">15/10/2025</td>
+
+                                    <td>
+                                        <span class="badge bg-primary" th:text="${evento.inscripciones.size()}">45</span>
+                                    </td>
+
+                                    <td th:text="${evento.lugar}">Bogotá</td>
+                                </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>

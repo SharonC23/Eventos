@@ -133,6 +133,41 @@
             margin: 0.25rem;
             display: inline-block;
         }
+
+        .ranking-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 20px;
+    font-weight: bold;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    z-index: 10;
+}
+
+/* Colores para los primeros 3 lugares */
+.ranking-badge.gold {
+    background: linear-gradient(135deg, #FFD700, #FFC107);
+}
+
+.ranking-badge.silver {
+    background: linear-gradient(135deg, #C0C0C0, #B0BEC5);
+}
+
+.ranking-badge.bronze {
+    background: linear-gradient(135deg, #CD7F32, #A97142);
+}
+
+/* Para el resto */
+.ranking-badge.normal {
+    background: linear-gradient(135deg, #6c757d, #495057);
+}
     </style>
 </head>
 <body>
@@ -155,55 +190,52 @@
         <h2 class="section-title">
             <i class="bi bi-star-fill"></i> Eventos Destacados
         </h2>
-        <p class="text-muted mb-4">Los eventos más populares de la comunidad</p>
+        <p class="text-muted mb-4">🏆 Ranking de Eventos Populares</p>
 
         <div class="row g-4">
-            <div class="col-md-6 col-lg-4" th:each="evento : ${eventosDestacados}">
+            <div class="col-md-6 col-lg-4" th:each="evento, iterStat : ${eventosDestacados}">
                 <div class="event-card">
                     <div class="position-relative">
-                        <img th:src="${evento.imagenUrl}" class="event-card-img" alt="Evento">
+                        <img th:if="${!#lists.isEmpty(evento.imagenes)}"
+                             th:src="${evento.imagenes[0].ruta}"
+                             alt="Imagen del evento"
+                             class="event-card-img"/>
+
+                        <!-- Número de ranking -->
+                        <div class="ranking-badge"
+                             th:classappend="${iterStat.index == 0 ? ' gold'
+                                : (iterStat.index == 1 ? ' silver'
+                                : (iterStat.index == 2 ? ' bronze' : ' normal'))}">
+                            <span th:text="${iterStat.index + 1}"></span>
+                        </div>
+
+                        <!-- Etiqueta destacado -->
                         <span class="event-badge destacado-badge">
-                                <i class="bi bi-star-fill"></i> Destacado
-                            </span>
+                <i class="bi bi-star-fill"></i> Destacado
+            </span>
                     </div>
+
                     <div class="p-3">
                         <div class="d-flex justify-content-between align-items-start mb-2">
-                            <span class="badge" th:classappend="${evento.categoria.color}" th:text="${evento.categoria.nombre}">Categoría</span>
-                            <div class="rating-stars">
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-half"></i>
-                                <small class="text-muted ms-1" th:text="${evento.promedioCalificacion}">4.5</small>
-                            </div>
+                            <span class="badge" th:classappend="${evento.categoria.color}" th:text="${evento.categoria.nombreCategoria}">Categoría</span>
                         </div>
 
                         <h5 class="card-title mb-2" th:text="${evento.nombre}">Nombre del Evento</h5>
-                        <p class="card-text text-muted small mb-3" th:text="${evento.descripcionCorta}">Descripción breve del evento...</p>
+                        <p class="card-text text-muted small mb-3" th:text="${evento.descripcion}"></p>
 
                         <div class="mb-3">
                             <div class="stats-badge">
                                 <i class="bi bi-calendar3 text-danger"></i>
-                                <small th:text="${#temporals.format(evento.fecha, 'dd/MM/yyyy')}">15/02/2025</small>
+                                <small th:text="${#temporals.format(evento.fecha, 'dd/MM/yyyy')}"></small>
                             </div>
                             <div class="stats-badge">
                                 <i class="bi bi-geo-alt text-danger"></i>
-                                <small th:text="${evento.lugar}">Lugar</small>
+                                <small th:text="${evento.lugar}"></small>
                             </div>
                             <div class="stats-badge">
                                 <i class="bi bi-people text-danger"></i>
-                                <small><span th:text="${evento.totalInscripciones}">150</span> inscritos</small>
+                                <small><span th:text="${evento.inscripciones.size()}"></span> inscritos</small>
                             </div>
-                        </div>
-
-                        <div class="d-flex gap-2">
-                            <a th:href="@{/ciudadano/evento/{id}(id=${evento.id})}" class="btn btn-kennedy flex-grow-1">
-                                <i class="bi bi-eye"></i> Ver Detalles
-                            </a>
-                            <button class="btn btn-outline-danger" th:if="${!evento.inscrito}">
-                                <i class="bi bi-bookmark"></i>
-                            </button>
                         </div>
                     </div>
                 </div>

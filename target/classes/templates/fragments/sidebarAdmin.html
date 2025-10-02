@@ -36,31 +36,10 @@
                 </a>
             </li>
             <li>
-                <a th:href="@{/admin/usuarios}"
-                   th:classappend="${paginaActual == 'usuarios'} ? ' active'">
-                    <i class="bi bi-people"></i>
-                    <span>Usuarios</span>
-                </a>
-            </li>
-            <li>
-                <a th:href="@{/admin/inscripciones}"
+                <a th:href="@{/admin/inscripciones/}"
                    th:classappend="${paginaActual == 'inscripciones'} ? ' active'">
                     <i class="bi bi-clipboard-check"></i>
                     <span>Inscripciones</span>
-                </a>
-            </li>
-            <li>
-                <a th:href="@{/admin/comentarios}"
-                   th:classappend="${paginaActual == 'comentarios'} ? ' active'">
-                    <i class="bi bi-chat-dots"></i>
-                    <span>Comentarios</span>
-                </a>
-            </li>
-            <li>
-                <a th:href="@{/admin/configuracion}"
-                   th:classappend="${paginaActual == 'configuracion'} ? ' active'">
-                    <i class="bi bi-gear"></i>
-                    <span>Configuración</span>
                 </a>
             </li>
         </ul>
