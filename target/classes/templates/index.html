@@ -188,6 +188,63 @@
             background: linear-gradient(90deg, var(--kennedy-red), var(--kennedy-yellow));
             border-radius: 2px;
         }
+
+        .event-card-img {
+            height: 200px;
+            object-fit: cover;
+            width: 100%;
+        }
+
+        .event-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--kennedy-yellow);
+            color: var(--kennedy-dark-red);
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 0.85rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .destacado-badge {
+            background: linear-gradient(135deg, var(--kennedy-red), var(--kennedy-dark-red));
+            color: white;
+        }
+
+        .ranking-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 20px;
+    font-weight: bold;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    z-index: 10;
+}
+
+.ranking-badge.gold {
+    background: linear-gradient(135deg, #FFD700, #FFC107);
+}
+
+.ranking-badge.silver {
+    background: linear-gradient(135deg, #C0C0C0, #B0BEC5);
+}
+
+.ranking-badge.bronze {
+    background: linear-gradient(135deg, #CD7F32, #A97142);
+}
+
+.ranking-badge.normal {
+    background: linear-gradient(135deg, #6c757d, #495057);
+}
     </style>
 </head>
 <body>
@@ -328,78 +385,42 @@
     </div>
 </section>
 
-<section id="categorias" class="py-5">
-    <div class="container">
-        <h2 class="text-center section-title">Categorías de Eventos</h2>
-        <div class="text-center mt-4">
-            <span class="category-badge"><i class="bi bi-palette me-2"></i>Cultura</span>
-            <span class="category-badge"><i class="bi bi-trophy me-2"></i>Deporte</span>
-            <span class="category-badge"><i class="bi bi-book me-2"></i>Educación</span>
-            <span class="category-badge"><i class="bi bi-heart-pulse me-2"></i>Salud</span>
-            <span class="category-badge"><i class="bi bi-tree me-2"></i>Medio Ambiente</span>
-            <span class="category-badge"><i class="bi bi-people me-2"></i>Comunidad</span>
-            <span class="category-badge"><i class="bi bi-briefcase me-2"></i>Emprendimiento</span>
-            <span class="category-badge"><i class="bi bi-music-note me-2"></i>Música</span>
-        </div>
-    </div>
-</section>
-
 <section id="eventos" class="py-5 bg-light">
     <div class="container">
         <h2 class="text-center section-title">Próximos Eventos Destacados</h2>
         <div class="row g-4 mt-4">
-            <div class="col-md-4">
+            <div th:each="evento, iterStat : ${eventosDestacados}" class="col-md-4">
                 <div class="card event-card">
-                    <div class="event-image">
-                        <i class="bi bi-music-note-beamed"></i>
+                    <div class="position-relative">
+                        <img th:if="${!#lists.isEmpty(evento.imagenes)}"
+                             th:src="${evento.imagenes[0].ruta}"
+                             alt="Imagen del evento"
+                             class="event-card-img"/>
+
+                        <!-- Número de ranking -->
+                        <div class="ranking-badge"
+                             th:classappend="${iterStat.index == 0 ? ' gold'
+                                : (iterStat.index == 1 ? ' silver'
+                                : (iterStat.index == 2 ? ' bronze' : ' normal'))}">
+                            <span th:text="${iterStat.index + 1}"></span>
+                        </div>
+
+                        <!-- Etiqueta destacado -->
+                        <span class="event-badge destacado-badge">
+                <i class="bi bi-star-fill"></i> Destacado
+            </span>
                     </div>
                     <div class="card-body">
-                        <span class="badge bg-danger mb-2">Cultura</span>
-                        <h5 class="card-title fw-bold">Festival Cultural Kennedy 2025</h5>
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <span class="badge" th:classappend="${evento.categoria.color}" th:text="${evento.categoria.nombreCategoria}">Categoría</span>
+                        </div>
+                        <h5 class="card-title fw-bold" th:text="${evento.nombre}"></h5>
                         <p class="text-muted mb-3">
-                            <i class="bi bi-calendar3 me-2"></i>15 de Octubre, 2025<br>
-                            <i class="bi bi-geo-alt me-2"></i>Parque Central Kennedy
+                            <i class="bi bi-calendar3 me-2"></i><span th:text="${#temporals.format(evento.fecha, 'dd/MM/yyyy')}"></span><br>
+                            <i class="bi bi-geo-alt me-2"></i><span th:text="${evento.lugar}"></span>
                         </p>
-                        <p class="card-text">Gran festival con música, danza y gastronomía local.</p>
-                        <a href="/login" class="btn btn-kennedy-yellow w-100">
-                            <i class="bi bi-box-arrow-in-right me-2"></i>Inscribirse
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card event-card">
-                    <div class="event-image">
-                        <i class="bi bi-bicycle"></i>
-                    </div>
-                    <div class="card-body">
-                        <span class="badge bg-success mb-2">Deporte</span>
-                        <h5 class="card-title fw-bold">Ciclovía Comunitaria</h5>
-                        <p class="text-muted mb-3">
-                            <i class="bi bi-calendar3 me-2"></i>20 de Octubre, 2025<br>
-                            <i class="bi bi-geo-alt me-2"></i>Av. Ciudad de Cali
-                        </p>
-                        <p class="card-text">Jornada deportiva para toda la familia en bicicleta.</p>
-                        <a href="/login" class="btn btn-kennedy-yellow w-100">
-                            <i class="bi bi-box-arrow-in-right me-2"></i>Inscribirse
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card event-card">
-                    <div class="event-image">
-                        <i class="bi bi-laptop"></i>
-                    </div>
-                    <div class="card-body">
-                        <span class="badge bg-primary mb-2">Educación</span>
-                        <h5 class="card-title fw-bold">Taller de Tecnología Digital</h5>
-                        <p class="text-muted mb-3">
-                            <i class="bi bi-calendar3 me-2"></i>25 de Octubre, 2025<br>
-                            <i class="bi bi-geo-alt me-2"></i>Casa de la Cultura
-                        </p>
-                        <p class="card-text">Aprende habilidades digitales para el mundo laboral.</p>
-                        <a href="/login" class="btn btn-kennedy-yellow w-100">
+                        <p class="card-text" th:text="${evento.descripcion}"></p>
+                        <a th:href="@{/login}" class="btn btn-kennedy-yellow w-100">
                             <i class="bi bi-box-arrow-in-right me-2"></i>Inscribirse
                         </a>
                     </div>
@@ -407,7 +428,7 @@
             </div>
         </div>
         <div class="text-center mt-5">
-            <a href="/login" class="btn btn-outline-danger btn-lg">
+            <a th:href="@{/login}" class="btn btn-outline-danger btn-lg">
                 Ver Todos los Eventos <i class="bi bi-arrow-right ms-2"></i>
             </a>
         </div>

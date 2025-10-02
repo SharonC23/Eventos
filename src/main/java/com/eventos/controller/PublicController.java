@@ -1,6 +1,7 @@
 package com.eventos.controller;
 
 import com.eventos.entity.Usuario;
+import com.eventos.service.EventoService;
 import com.eventos.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,8 +17,12 @@ public class PublicController {
     @Autowired
     UsuarioService usuarioService;
 
+    @Autowired
+    EventoService eventoService;
+
     @GetMapping("/")
-    String index(){
+    String index(Model model){
+        model.addAttribute("eventosDestacados", eventoService.obtenerTop5Eventos());
         return "/index";
     }
 

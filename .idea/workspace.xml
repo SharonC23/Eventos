@@ -5,48 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="487b5b31-c280-4090-8f4c-72898b06b473" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/eventos/controller/InscripcionController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/eventos/EventosApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/eventos/EventosApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/eventos/controller/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/eventos/controller/AdminController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/eventos/controller/CiudadanoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/eventos/controller/CiudadanoController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/eventos/controller/EventoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/eventos/controller/EventoController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/eventos/entity/Evento.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/eventos/entity/Evento.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/eventos/entity/InscripcionEvento.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/eventos/entity/InscripcionEvento.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/eventos/implement/EventoImplement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/eventos/implement/EventoImplement.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/eventos/implement/InscripcionImplement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/eventos/implement/InscripcionImplement.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/eventos/repository/EventoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/eventos/repository/EventoRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/eventos/repository/InscripcionRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/eventos/repository/InscripcionRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/eventos/service/EventoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/eventos/service/EventoService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/eventos/service/InscripcionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/eventos/service/InscripcionService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/comentarios.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/configuracion.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/eventos/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/eventos/config/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/eventos/controller/PublicController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/eventos/controller/PublicController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/dashboard.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/eventos.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/eventos.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/inscripciones.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/inscripciones.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/usuarios.html" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/ciudadano/eventos.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/ciudadano/eventos.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/fragments/sidebarAdmin.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/fragments/sidebarAdmin.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/eventos/EventosApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/eventos/EventosApplication.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/eventos/controller/AdminController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/eventos/controller/AdminController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/eventos/controller/CiudadanoController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/eventos/controller/CiudadanoController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/eventos/controller/EventoController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/eventos/controller/EventoController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/eventos/entity/Evento.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/eventos/entity/Evento.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/eventos/entity/InscripcionEvento.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/eventos/entity/InscripcionEvento.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/eventos/implement/EventoImplement.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/eventos/implement/EventoImplement.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/eventos/implement/InscripcionImplement.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/eventos/implement/InscripcionImplement.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/eventos/repository/EventoRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/eventos/repository/EventoRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/eventos/repository/InscripcionRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/eventos/repository/InscripcionRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/eventos/service/EventoService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/eventos/service/EventoService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/eventos/service/InscripcionService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/eventos/service/InscripcionService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/admin/comentarios.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/admin/configuracion.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/admin/dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/admin/dashboard.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/admin/eventos.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/admin/eventos.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/admin/inscripciones.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/admin/inscripciones.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/admin/usuarios.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/ciudadano/eventos.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/ciudadano/eventos.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/fragments/sidebarAdmin.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/fragments/sidebarAdmin.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/eventos/config/SecurityConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/eventos/config/SecurityConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/eventos/controller/PublicController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/eventos/controller/PublicController.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
