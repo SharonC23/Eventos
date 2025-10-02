@@ -1,19 +1,198 @@
-@Bean
-    CommandLineRunner commandLineRunner(UsuarioRepository usuarioRepository, PasswordEncoder passwordEncoder){
-        return args -> {
+// AQUI SE AGREGAN DINAMICAMENTE LOS 5 CIUDADANOS CON DATOS RANDOMS
 
-            if(usuarioRepository.findByEmail("sharon@gmail.com").isEmpty()){
-                Usuario usuario = new Usuario();
+            for (int i = 0; i < 5; i++){
+                if (usuarioRepository.findByEmail("ciudadano"+(i+1)+"@gmail.com").isEmpty()){
+                    Usuario usuario = new Usuario();
+                    Random random = new Random();
+                    StringBuilder stringBuilder = new StringBuilder();
 
-                usuario.setCedula("1234567890");
-                usuario.setRol(RolUsuario.ADMINISTRADOR);
-                usuario.setNombreCompleto("Sharon Yirley Carrillo Virguez");
-                usuario.setPassword(passwordEncoder.encode("sharon1234"));
-                usuario.setEmail("sharon@gmail.com");
+                    for(int n = 0; n < 10; n++){
+                        stringBuilder.append(random.nextInt(10));
+                    }
 
-                usuarioRepository.save(usuario);
+                    usuario.setCedula(stringBuilder.toString());
+                    usuario.setRol(RolUsuario.CIUDADANO);
+                    usuario.setNombreCompleto("Nombre Completo Usuario "+(i+1));
+                    usuario.setPassword(passwordEncoder.encode("ciudadano"+(i+1)));
+                    usuario.setEmail("ciudadano"+(i+1)+"@gmail.com");
+
+                    usuarioRepository.save(usuario);
+                }
             }
 
-            if
-        };
-    }
+            // AQUI SE AGREGAN LAS 3 CATEGORIAS
+            CategoriaEvento deportes = categoriaRepository.findByNombreCategoria("Deportes")
+                    .orElseGet(() -> {
+                        CategoriaEvento c = new CategoriaEvento();
+                        c.setColor("#fd0d0d");
+                        c.setDescripcion("Eventos deportivos");
+                        c.setEmojiBootstrap("trophy");
+                        c.setNombreCategoria("Deportes");
+                        return categoriaRepository.save(c);
+                    });
+
+            CategoriaEvento educacion = categoriaRepository.findByNombreCategoria("Educación")
+                    .orElseGet(() -> {
+                        CategoriaEvento c = new CategoriaEvento();
+                        c.setColor("#0d6efd");
+                        c.setDescripcion("Charlas y talleres educativos");
+                        c.setEmojiBootstrap("book");
+                        c.setNombreCategoria("Educación");
+                        return categoriaRepository.save(c);
+                    });
+
+            CategoriaEvento arte = categoriaRepository.findByNombreCategoria("Arte")
+                    .orElseGet(() -> {
+                        CategoriaEvento c = new CategoriaEvento();
+                        c.setColor("#37ff00");
+                        c.setDescripcion("Eventos artísticos y culturales");
+                        c.setEmojiBootstrap("palette");
+                        c.setNombreCategoria("Arte");
+                        return categoriaRepository.save(c);
+                    });
+
+            // AQUI SE AGREGAN LOS 5 EVENTOS
+            Evento evento1 = eventoRepository.findByNombre("Fútbol Sub-20")
+                    .orElseGet(() -> {
+                        Evento e = new Evento();
+                        e.setDescripcion("Campeonato de fútbol juvenil");
+                        e.setEstado("PROXIMO");
+                        e.setFecha(LocalDate.of(2025, 10, 10));
+                        e.setHora(LocalTime.of(15, 0));
+                        e.setLugar("Estadio Municipal");
+                        e.setCategoria(deportes);
+                        e.setNombre("Fútbol Sub-20");
+                        return eventoRepository.save(e);
+                    });
+
+            Evento evento2 = eventoRepository.findByNombre("IA 2025")
+                    .orElseGet(() -> {
+                        Evento e = new Evento();
+                        e.setDescripcion("Conferencia de Inteligencia Artificial");
+                        e.setEstado("PROXIMO");
+                        e.setFecha(LocalDate.of(2025, 10, 18));
+                        e.setHora(LocalTime.of(9, 0));
+                        e.setLugar("Auditorio SENA calle 65");
+                        e.setCategoria(educacion);
+                        e.setNombre("IA 2025");
+                        return eventoRepository.save(e);
+                    });
+
+            Evento evento3 = eventoRepository.findByNombre("Colores del Futuro")
+                    .orElseGet(() -> {
+                        Evento e = new Evento();
+                        e.setDescripcion("Exposición de arte moderno");
+                        e.setEstado("PROXIMO");
+                        e.setFecha(LocalDate.of(2025, 11, 5));
+                        e.setHora(LocalTime.of(14, 30));
+                        e.setLugar("Museo Nacional");
+                        e.setCategoria(arte);
+                        e.setNombre("Colores del Futuro");
+                        return eventoRepository.save(e);
+                    });
+
+            Evento evento4 = eventoRepository.findByNombre("Basket U18")
+                    .orElseGet(() -> {
+                        Evento e = new Evento();
+                        e.setDescripcion("Torneo de baloncesto intercolegial");
+                        e.setEstado("PROXIMO");
+                        e.setFecha(LocalDate.of(2025, 10, 20));
+                        e.setHora(LocalTime.of(16, 0));
+                        e.setLugar("Coliseo Bosa");
+                        e.setCategoria(deportes);
+                        e.setNombre("Basket U18");
+                        return eventoRepository.save(e);
+                    });
+
+            Evento evento5 = eventoRepository.findByNombre("Java Day")
+                    .orElseGet(() -> {
+                        Evento e = new Evento();
+                        e.setDescripcion("Seminario de programación en Java");
+                        e.setEstado("PROXIMO");
+                        e.setFecha(LocalDate.of(2025, 11, 12));
+                        e.setHora(LocalTime.of(10, 0));
+                        e.setLugar("SENA calle 65");
+                        e.setCategoria(educacion);
+                        e.setNombre("Java Day");
+                        return eventoRepository.save(e);
+                    });
+
+            // AQUI SE AGREGAN LAS IMAGENES
+            List<Imagenes> imagenes = new ArrayList<>();
+
+            Imagenes img1 = new Imagenes();
+            img1.setRuta("/imagenes/futbol1.jpg");
+            img1.setEvento(evento1);
+            imagenes.add(img1);
+
+            Imagenes img2 = new Imagenes();
+            img2.setRuta("/imagenes/futbol2.jpg");
+            img2.setEvento(evento1);
+            imagenes.add(img2);
+
+            Imagenes img3 = new Imagenes();
+            img3.setRuta("/imagenes/futbol3.jpg");
+            img3.setEvento(evento1);
+            imagenes.add(img3);
+
+            Imagenes img4 = new Imagenes();
+            img4.setRuta("/imagenes/ia1.jpg");
+            img4.setEvento(evento2);
+            imagenes.add(img4);
+
+            Imagenes img5 = new Imagenes();
+            img5.setRuta("/imagenes/ia2.jpg");
+            img5.setEvento(evento2);
+            imagenes.add(img5);
+
+            Imagenes img6 = new Imagenes();
+            img6.setRuta("/imagenes/arte1.jpg");
+            img6.setEvento(evento3);
+            imagenes.add(img6);
+
+            Imagenes img7 = new Imagenes();
+            img7.setRuta("/imagenes/arte2.jpg");
+            img7.setEvento(evento3);
+            imagenes.add(img7);
+
+            Imagenes img8 = new Imagenes();
+            img8.setRuta("/imagenes/arte3.jpg");
+            img8.setEvento(evento3);
+            imagenes.add(img8);
+
+            Imagenes img9 = new Imagenes();
+            img9.setRuta("/imagenes/basket1.jpg");
+            img9.setEvento(evento4);
+            imagenes.add(img9);
+
+            Imagenes img10 = new Imagenes();
+            img10.setRuta("/imagenes/basket2.jpg");
+            img10.setEvento(evento4);
+            imagenes.add(img10);
+
+            Imagenes img11 = new Imagenes();
+            img11.setRuta("/imagenes/basket3.jpg");
+            img11.setEvento(evento4);
+            imagenes.add(img11);
+
+            Imagenes img12 = new Imagenes();
+            img12.setRuta("/imagenes/java1.jpg");
+            img12.setEvento(evento5);
+            imagenes.add(img12);
+
+            Imagenes img13 = new Imagenes();
+            img13.setRuta("/imagenes/java2.jpg");
+            img13.setEvento(evento5);
+            imagenes.add(img13);
+
+            Imagenes img14 = new Imagenes();
+            img14.setRuta("/imagenes/java3.jpg");
+            img14.setEvento(evento5);
+            imagenes.add(img14);
+
+            // AQUI SE VERIFICA QUE NO EXISTAN ANTES DE CUARDAR PARA EVITAR DUPLICADOS
+            for (Imagenes img : imagenes) {
+                if (imagenRepository.findByRuta(img.getRuta()).isEmpty()) {
+                    imagenRepository.save(img);
+                }
+            }
